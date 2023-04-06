@@ -18,12 +18,11 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     Constants myConstants = Constants();
-    final cities = ["Berlin", "London"];
     final editOptions = ["Edit", "C", "F"];
 
     return Scaffold(
         backgroundColor: myConstants.pageColor,
-        appBar: MyAppBar(context),
+        appBar: myAppBar(context),
         body: ListView(
           padding: EdgeInsets.all(10),
           children: <Widget>[
