@@ -17,6 +17,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  bottom_picker:
+    dependency: "direct main"
+    description:
+      name: bottom_picker
+      sha256: beaf34b440d1b95f1ef3bc2614c414c9deac14c76cc13d2d46c748593afa01c6
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
   characters:
     dependency: transitive
     description:
@@ -218,3 +226,4 @@ packages:
     version: "2.1.4"
 sdks:
   dart: ">=2.18.0 <3.0.0"
+  flutter: ">=1.17.0"
