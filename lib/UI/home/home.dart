@@ -4,6 +4,7 @@ import 'package:bottom_picker/bottom_picker.dart';
 import 'package:bottom_picker/resources/arrays.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:weather/UI/home/widgets/citiesPicker.dart';
 
 import '../../models/city_weather_model.dart';
 import '/models/constants.dart';
@@ -29,19 +30,10 @@ class _HomeState extends State<Home> {
     //   CityWeatherModel("Berlin", "Berlin", 13, "Cloudy")
     // ];
 
-    final List<String> cities = [
-      'New York',
-      'Los Angeles',
-      'Chicago',
-      'Houston',
-      'Phoenix',
-      'Philadelphia',
-      'San Antonio',
-      'San Diego',
-      'Dallas',
-      'San Jose',
-    ];
     String selectedCity = "";
+    void setSelectedCity(city) {
+      selectedCity = city;
+    }
 
     List<String> myCities = [
       "MyLocation",
@@ -78,55 +70,11 @@ class _HomeState extends State<Home> {
               showCupertinoModalPopup(
                 context: context,
                 builder: (BuildContext context) {
-                  return Container(
-                    color: myConstants.pageColor,
-                    height: 250,
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 150,
-                          child: CupertinoPicker(
-                            itemExtent: 40,
-                            children: List<Widget>.generate(cities.length,
-                                (int index) {
-                              return Center(
-                                child: Text(
-                                  cities[index],
-                                  style:
-                                      TextStyle(color: myConstants.titleColor),
-                                ),
-                              );
-                            }),
-                            onSelectedItemChanged: (int index) {
-                              setState(() {
-                                selectedCity = cities[index];
-                              });
-                            },
-                          ),
-                        ),
-                        Container(
-                          height: 100,
-                          child: CupertinoButton(
-                            child: Text(
-                              "Confirm",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                print(selectedCity);
-                                Navigator.of(context).pop(selectedCity);
-                              });
-                            },
-                          ),
-                        )
-                      ],
-                    ),
-                  );
+                  return CitiesPicker(setSelectedCity);
                 },
               );
             }
           },
-          
           icon: Icon(Icons.menu),
           itemBuilder: (_) => [
             PopupMenuItem(
@@ -155,23 +103,4 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-// BottomPicker(
-//                 title: "Choose your country",
-//                 items: [
-//                   Text("Morocco"),
-//                   Text("Something"),
-//                 ],
-//                 backgroundColor: myConstants.titleColor.withOpacity(0.8),
-//                 titleStyle: TextStyle(
-//                     color: Colors.black, fontFamily: 'RussoOne', fontSize: 25),
-//                 pickerTextStyle: TextStyle(
-//                   color: Colors.black,
-//                   fontFamily: 'RussoOne',
-//                   fontSize: 20,
-//                 ),
-//                 bottomPickerTheme: BottomPickerTheme.morningSalad,
-//                 onSubmit: (index) {
-//                   print(index);
-//                 },
-//               ).show(context);
+// wrapped 
