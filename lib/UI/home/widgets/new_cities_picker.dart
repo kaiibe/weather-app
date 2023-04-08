@@ -1,19 +1,21 @@
-// ignore_for_file: sized_box_for_whitespace, file_names, must_be_immutable
+// ignore_for_file:
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+
 import '../../../models/constants.dart';
 
-class CitiesPicker extends StatelessWidget {
-  Function setSelectedCity;
-  CitiesPicker(this.setSelectedCity, {Key key}) : super(key: key);
+class NewCitiesPicker extends StatelessWidget {
+  final Function addNewCity;
+  const NewCitiesPicker(this.addNewCity, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Constants myConstants = Constants();
-    String selectedCity;
+    String selectedCity = "";
 
-    final List<String> cities = [
+    const List<String> cities = [
+      'None',
       'New York',
       'Los Angeles',
       'Chicago',
@@ -27,11 +29,11 @@ class CitiesPicker extends StatelessWidget {
     ];
 
     return Container(
-      color: myConstants.pageColor,
+      color: myConstants.pageColor.withOpacity(1),
       height: 250,
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: 150,
             child: CupertinoPicker(
               itemExtent: 40,
@@ -48,7 +50,7 @@ class CitiesPicker extends StatelessWidget {
               },
             ),
           ),
-          Container(
+          SizedBox(
             height: 100,
             child: CupertinoButton(
               child: const Text(
@@ -56,9 +58,9 @@ class CitiesPicker extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
-                setSelectedCity(selectedCity);
-                print(selectedCity);
-                Navigator.of(context).pop(selectedCity);
+                addNewCity(selectedCity);
+                selectedCity = "";
+                Navigator.of(context).pop();
               },
             ),
           )

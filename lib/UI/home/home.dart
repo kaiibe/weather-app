@@ -1,14 +1,9 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_local_variable, sized_box_for_whitespace
-
-import 'package:bottom_picker/bottom_picker.dart';
-import 'package:bottom_picker/resources/arrays.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:weather/UI/home/widgets/citiesPicker.dart';
 
-import '../../models/city_weather_model.dart';
 import '/models/constants.dart';
-import 'widgets/user_cities.dart';
+import 'widgets/user_cities_list.dart';
+import './widgets/new_cities_picker.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -17,30 +12,26 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
+final List<String> myCities = [
+  "My Location",
+  "Berlin",
+  "Dushanbe",
+  "Potsdam",
+];
+
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     Constants myConstants = Constants();
 
-    List<String> editOptions = ["Edit", "C", "F"];
-
-    // final List<CityWeatherModel> citiesWeather = [
-    //   CityWeatherModel("My Location", "Potsdam", 18, "Partly Cloudy"),
-    //   CityWeatherModel("Berlin", "Berlin", 13, "Cloudy")
-    // ];
-
-    String selectedCity = "";
-    void setSelectedCity(city) {
-      selectedCity = city;
+    void addNewCity(String city) {
+      if (city != "" && city != "None") {
+        setState(() {
+          myCities.add(city);
+        });
+      }
     }
-
-    List<String> myCities = [
-      "MyLocation",
-      "Berlin",
-      "Dushanbe",
-      "Potsdam",
-    ];
 
     final appBar = AppBar(
       backgroundColor: myConstants.pageColor,
@@ -53,7 +44,7 @@ class _HomeState extends State<Home> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+          children: const [
             Text(
               "Weather",
               style: TextStyle(
@@ -65,27 +56,43 @@ class _HomeState extends State<Home> {
       ),
       actions: <Widget>[
         PopupMenuButton(
+          color: myConstants.primaryColor.withOpacity(1),
           onSelected: (selectedValue) {
             if (selectedValue == "Add") {
               showCupertinoModalPopup(
                 context: context,
                 builder: (BuildContext context) {
-                  return CitiesPicker(setSelectedCity);
+                  return NewCitiesPicker(addNewCity);
                 },
               );
             }
           },
-          icon: Icon(Icons.menu),
+          icon: const Icon(
+            Icons.menu,
+            color: Colors.white,
+          ),
           itemBuilder: (_) => [
-            PopupMenuItem(
+            const PopupMenuItem(
+              textStyle: TextStyle(
+                fontFamily: 'RussoOne',
+                fontSize: 20,
+              ),
               value: "Add",
               child: Text("Add"),
             ),
-            PopupMenuItem(
+            const PopupMenuItem(
+              textStyle: TextStyle(
+                fontFamily: 'RussoOne',
+                fontSize: 20,
+              ),
               value: "C",
               child: Text("C"),
             ),
-            PopupMenuItem(
+            const PopupMenuItem(
+              textStyle: TextStyle(
+                fontFamily: 'RussoOne',
+                fontSize: 20,
+              ),
               value: "F",
               child: Text("F"),
             ),
@@ -94,13 +101,10 @@ class _HomeState extends State<Home> {
       ],
     );
 
-    final homeBody = CitiesWeather(myCities: myCities);
-
     return Scaffold(
       backgroundColor: myConstants.pageColor,
       appBar: appBar,
-      body: homeBody,
+      body: UserCitiesList(myCities),
     );
   }
 }
-// wrapped 
