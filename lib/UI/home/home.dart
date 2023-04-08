@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import '/models/constants.dart';
 import 'widgets/user_cities_list.dart';
 import './widgets/new_cities_picker.dart';
+import '../../models/city_weather_model.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -12,11 +13,12 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-final List<String> myCities = [
-  "My Location",
-  "Berlin",
-  "Dushanbe",
-  "Potsdam",
+
+final List<CitiesWeatherModel> _myCities = [
+  CitiesWeatherModel("My Location"),
+  CitiesWeatherModel("Berlin"),
+  CitiesWeatherModel("Dushanbe"),
+  CitiesWeatherModel("Potsdam"),
 ];
 
 class _HomeState extends State<Home> {
@@ -28,7 +30,7 @@ class _HomeState extends State<Home> {
     void addNewCity(String city) {
       if (city != "" && city != "None") {
         setState(() {
-          myCities.add(city);
+          _myCities.add(CitiesWeatherModel(city));
         });
       }
     }
@@ -104,7 +106,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: myConstants.pageColor,
       appBar: appBar,
-      body: UserCitiesList(myCities),
+      body: UserCitiesList(_myCities),
     );
   }
 }

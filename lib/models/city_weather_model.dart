@@ -1,8 +1,8 @@
-class CityWeatherModel {
+class CitiesWeatherModel {
   String id;
   String city;
   int temperature;
   String weatherState;
 
-  CityWeatherModel(this.id, this.city, this.temperature, this.weatherState);
+  CitiesWeatherModel(this.city);
 }

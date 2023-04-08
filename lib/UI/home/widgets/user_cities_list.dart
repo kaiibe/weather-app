@@ -1,11 +1,14 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 
+import '../../../models/city_weather_model.dart';
 import '../../../models/constants.dart';
 
 class UserCitiesList extends StatefulWidget {
-  final List<String> myCities;
+  final List<CitiesWeatherModel> myCities;
 
-  const UserCitiesList(this.myCities, {Key key}) : super(key: key);
+  const UserCitiesList( this.myCities, {Key key}) : super(key: key);
 
   @override
   State<UserCitiesList> createState() => _UserCitiesListState();
@@ -43,7 +46,7 @@ class _UserCitiesListState extends State<UserCitiesList> {
                         top: 10,
                         left: 15,
                         child: Text(
-                          widget.myCities[index],
+                          widget.myCities[index].city,
                           style: TextStyle(
                               fontSize: 25,
                               fontFamily: 'RussoOne',
