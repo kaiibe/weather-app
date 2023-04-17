@@ -13,7 +13,6 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-
 final List<CitiesWeatherModel> _myCities = [
   CitiesWeatherModel("My Location"),
   CitiesWeatherModel("Berlin"),

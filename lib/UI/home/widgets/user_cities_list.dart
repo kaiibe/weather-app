@@ -4,17 +4,27 @@ import 'package:flutter/material.dart';
 
 import '../../../models/city_weather_model.dart';
 import '../../../models/constants.dart';
+import '../../detailed_weather/detailed_weather.dart';
 
 class UserCitiesList extends StatefulWidget {
   final List<CitiesWeatherModel> myCities;
 
-  const UserCitiesList( this.myCities, {Key key}) : super(key: key);
+  const UserCitiesList(this.myCities, {Key key}) : super(key: key);
 
   @override
   State<UserCitiesList> createState() => _UserCitiesListState();
 }
 
 class _UserCitiesListState extends State<UserCitiesList> {
+  
+  void _selectedDetailedWeather(BuildContext context, String city) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: ((context) => DetailedWeather(city)),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -25,11 +35,10 @@ class _UserCitiesListState extends State<UserCitiesList> {
       child: ListView.builder(
           itemCount: widget.myCities.length,
           itemBuilder: (_, index) {
-            return GestureDetector(
-              // TODO: Navigate to another page on tap
-              onTap: () {
-                print(widget.myCities[index]);
-              },
+            return InkWell(
+              onTap: () => _selectedDetailedWeather(context, widget.myCities[index].city),
+              splashColor: myConstants.primaryColor,
+              borderRadius: BorderRadius.circular(15),
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Container(
