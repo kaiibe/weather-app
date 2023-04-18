@@ -103,7 +103,7 @@ class _HomeState extends State<Home> {
     );
 
     return Scaffold(
-      backgroundColor: myConstants.pageColor,
+      backgroundColor: myConstants.pageColor.withOpacity(1),
       appBar: appBar,
       body: UserCitiesList(_myCities),
     );

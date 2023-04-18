@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
 
@@ -15,31 +15,30 @@ class UserCitiesList extends StatefulWidget {
   State<UserCitiesList> createState() => _UserCitiesListState();
 }
 
-class _UserCitiesListState extends State<UserCitiesList> {
-  
-  void _selectedDetailedWeather(BuildContext context, String city) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: ((context) => DetailedWeather(city)),
-      ),
-    );
-  }
+void _selectedDetailedWeather(BuildContext context, CitiesWeatherModel city) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: ((ctx) => DetailedWeather(city)),
+    ),
+  );
+}
 
+class _UserCitiesListState extends State<UserCitiesList> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     Constants myConstants = Constants();
 
-    return SizedBox(
+    return Container(
       height: size.height,
       child: ListView.builder(
           itemCount: widget.myCities.length,
           itemBuilder: (_, index) {
             return InkWell(
-              onTap: () => _selectedDetailedWeather(context, widget.myCities[index].city),
-              splashColor: myConstants.primaryColor,
-              borderRadius: BorderRadius.circular(15),
-              child: Padding(
+              onTap: () {
+                _selectedDetailedWeather(context, widget.myCities[index]);
+              },
+              child: Container(
                 padding: const EdgeInsets.all(10),
                 child: Container(
                   width: size.width,
