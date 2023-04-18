@@ -2,9 +2,12 @@
 
 import 'package:flutter/material.dart';
 
-import './widgets/forcast.dart';
 import '../../../models/constants.dart';
 import '../../models/city_weather_model.dart';
+
+import './widgets/current_weather_state.dart';
+import './widgets/hourly_forecast.dart';
+import './widgets/weekly_forecasts.dart';
 
 class DetailedWeather extends StatelessWidget {
   final CitiesWeatherModel city;
@@ -29,62 +32,16 @@ class DetailedWeather extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
-        width: size.width,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: size.width,
-              height: 200,
-              //color: Colors.white,
-              child: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  Positioned(
-                    top: 50,
-                    left: 20,
-                    child: Text(
-                      "18°C",
-                      style: TextStyle(
-                        fontSize: 60,
-                        fontFamily: 'RussoOne',
-                        color: myConstants.titleColor,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 130,
-                    left: 20,
-                    child: Text(
-                      "Thunderstorm",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'RussoOne',
-                        color: myConstants.titleColor,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 20,
-                    left: 270,
-                    child: Container(
-                      width: 130,
-                      height: 130,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/images/thunderstorm.png"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Forecasts(),
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          width: size.width,
+          child: Column(
+            children: [
+              CurrentWeatherState(),
+              HourlyForecasts(),
+              WeeklyForecast(),
+            ],
+          ),
         ),
       ),
     );
