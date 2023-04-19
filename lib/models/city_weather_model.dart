@@ -2,13 +2,6 @@
 
 import 'package:geolocator/geolocator.dart';
 
-void getMyLocation() async {
-  Position myLocation = await Geolocator()
-      .getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
-
-  print(myLocation);
-}
-
 class CitiesWeatherModel {
   String id;
   String name;
@@ -17,11 +10,6 @@ class CitiesWeatherModel {
   String weatherState;
 
   CitiesWeatherModel(String city) {
-    if (city == "My Location") {
-      this.name = "My Location";
-      getMyLocation();
-    } else {
-      this.name = city;
-    }
+    this.name = city;
   }
 }

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 
 import '/models/constants.dart';
+import '../../models/city_weather_model.dart';
+
+import '../../controllers/global_controller.dart';
+
 import 'widgets/user_cities_list.dart';
 import './widgets/new_cities_picker.dart';
-import '../../models/city_weather_model.dart';
+
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -21,6 +26,9 @@ final List<CitiesWeatherModel> _myCities = [
 ];
 
 class _HomeState extends State<Home> {
+  final GlobalController globalController =
+      Get.put(GlobalController(), permanent: true);
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
