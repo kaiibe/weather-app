@@ -15,9 +15,9 @@ class Home extends StatefulWidget {
 
 final List<CitiesWeatherModel> _myCities = [
   CitiesWeatherModel("My Location"),
-  CitiesWeatherModel("Berlin"),
-  CitiesWeatherModel("Dushanbe"),
   CitiesWeatherModel("Potsdam"),
+  CitiesWeatherModel("Dushanbe"),
+  CitiesWeatherModel("Dubai"),
 ];
 
 class _HomeState extends State<Home> {

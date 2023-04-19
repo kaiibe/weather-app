@@ -1,18 +1,27 @@
-// ignore_for_file: prefer_initializing_formals
+// ignore_for_file: prefer_initializing_formals, unnecessary_this, avoid_print
 
-import 'package:intl/intl.dart';
+import 'package:geolocator/geolocator.dart';
+
+void getMyLocation() async {
+  Position myLocation = await Geolocator()
+      .getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+
+  print(myLocation);
+}
 
 class CitiesWeatherModel {
   String id;
-  String city;
+  String name;
+  String time;
   int temperature;
   String weatherState;
-  DateTime now;
-  String dateTime;
 
   CitiesWeatherModel(String city) {
-    this.city = city;
-    now = DateTime.now();
-    dateTime = DateFormat('EEE, d MMMM').format(now);
+    if (city == "My Location") {
+      this.name = "My Location";
+      getMyLocation();
+    } else {
+      this.name = city;
+    }
   }
 }

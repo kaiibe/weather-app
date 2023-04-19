@@ -83,6 +83,22 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  geolocator:
+    dependency: "direct main"
+    description:
+      name: geolocator
+      sha256: "853c6a051bea0349b3702bfe3ff39c55716c6d7881e8efa7d1705f3a0cdd9705"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
+  google_api_availability:
+    dependency: transitive
+    description:
+      name: google_api_availability
+      sha256: "652f4904b167c7890ae4a99a563b4522adf6bcffbc18f9bc580ebb902134398b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.4"
   http:
     dependency: "direct main"
     description:
@@ -155,6 +171,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.2"
+  permission_handler:
+    dependency: transitive
+    description:
+      name: permission_handler
+      sha256: e5a26079da8ca460319a3d70b41c6ab5becc218d6b4a8fe6c4c0080866408b39
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.3.0"
   sky_engine:
     dependency: transitive
     description: flutter

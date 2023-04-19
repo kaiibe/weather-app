@@ -54,7 +54,7 @@ class _UserCitiesListState extends State<UserCitiesList> {
                         top: 10,
                         left: 15,
                         child: Text(
-                          widget.myCities[index].city,
+                          widget.myCities[index].name,
                           style: TextStyle(
                               fontSize: 25,
                               fontFamily: 'RussoOne',

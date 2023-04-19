@@ -24,7 +24,7 @@ class DetailedWeather extends StatelessWidget {
         elevation: 0.0,
         backgroundColor: myConstants.pageColor,
         title: Text(
-          city.city,
+          city.name,
           style: TextStyle(
             fontSize: 30,
             fontFamily: 'RussoOne',
