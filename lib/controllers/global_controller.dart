@@ -41,11 +41,13 @@ class GlobalController extends GetxController {
     }
 
     return await Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.high)
-        .then((value) {
-      _latitude.value = value.latitude;
-      _longitude.value = value.latitude;
-      _isLoading.value = false;
-    });
+            desiredAccuracy: LocationAccuracy.low)
+        .then(
+      (value) {
+        _latitude.value = value.latitude;
+        _longitude.value = value.longitude;
+        _isLoading.value = false;
+      },
+    );
   }
 }

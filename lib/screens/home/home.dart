@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace, prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -9,7 +11,7 @@ import '../../controllers/global_controller.dart';
 
 import 'widgets/user_cities_list.dart';
 import './widgets/new_cities_picker.dart';
-
+import './widgets/current_weather.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -19,7 +21,6 @@ class Home extends StatefulWidget {
 }
 
 final List<CitiesWeatherModel> _myCities = [
-  CitiesWeatherModel("My Location"),
   CitiesWeatherModel("Potsdam"),
   CitiesWeatherModel("Dushanbe"),
   CitiesWeatherModel("Dubai"),
@@ -113,7 +114,28 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: myConstants.pageColor.withOpacity(1),
       appBar: appBar,
-      body: UserCitiesList(_myCities),
+      //body: UserCitiesList(_myCities),
+      body: SafeArea(
+        child: Obx(
+          () => globalController.checkLoading().isTrue
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : SingleChildScrollView(
+                  child: Container(
+                    width: size.width,
+                    child: Column(
+                      children: [
+                        CurrentWeather(),
+                        UserCitiesList(_myCities),
+                      ],
+                    ),
+                  ),
+                ),
+        ),
+      ),
     );
   }
 }
+
+// UserCitiesList(_myCities),

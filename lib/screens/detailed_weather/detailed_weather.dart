@@ -10,7 +10,7 @@ import './widgets/hourly_forecast.dart';
 import './widgets/weekly_forecasts.dart';
 
 class DetailedWeather extends StatelessWidget {
-  final CitiesWeatherModel city;
+  final String city;
   const DetailedWeather(this.city, {Key key}) : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class DetailedWeather extends StatelessWidget {
         elevation: 0.0,
         backgroundColor: myConstants.pageColor,
         title: Text(
-          city.name,
+          city,
           style: TextStyle(
             fontSize: 30,
             fontFamily: 'RussoOne',
