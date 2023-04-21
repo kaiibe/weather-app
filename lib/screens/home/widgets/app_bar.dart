@@ -7,11 +7,10 @@ import '../widgets/new_cities_picker.dart';
 
 class CustomAppBar {
   final Function addNewCity;
-  BuildContext context;
+  BuildContext ctx;
 
-  CustomAppBar(this.addNewCity, this.context);
+  CustomAppBar(this.addNewCity, this.ctx);
 
-  //Size size = MediaQuery.of(context).size;
   Constants myConstants = Constants();
 
   Widget getTitle() {
@@ -40,7 +39,7 @@ class CustomAppBar {
         onSelected: (selectedValue) {
           if (selectedValue == "Add") {
             showCupertinoModalPopup(
-              context: context,
+              context: ctx,
               builder: (BuildContext context) {
                 return NewCitiesPicker(addNewCity);
               },
