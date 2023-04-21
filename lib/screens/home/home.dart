@@ -1,10 +1,18 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 
 import '/models/constants.dart';
+import '../../models/city_weather_model.dart';
+
+import '../../server/geolocator.dart';
+
+import './widgets/app_bar.dart';
 import 'widgets/user_cities_list.dart';
 import './widgets/new_cities_picker.dart';
-import '../../models/city_weather_model.dart';
+import './widgets/current_weather.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -14,13 +22,15 @@ class Home extends StatefulWidget {
 }
 
 final List<CitiesWeatherModel> _myCities = [
-  CitiesWeatherModel("My Location"),
   CitiesWeatherModel("Potsdam"),
   CitiesWeatherModel("Dushanbe"),
   CitiesWeatherModel("Dubai"),
 ];
 
 class _HomeState extends State<Home> {
+  final GeolocatorController geolocator =
+      Get.put(GeolocatorController(), permanent: true);
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -34,78 +44,38 @@ class _HomeState extends State<Home> {
       }
     }
 
-    final appBar = AppBar(
-      backgroundColor: myConstants.pageColor,
-      elevation: 0.0,
-      centerTitle: false,
-      titleSpacing: 0,
-      title: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        width: size.width,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
-            Text(
-              "Weather",
-              style: TextStyle(
-                fontFamily: 'RussoOne',
-              ),
-            ),
-          ],
-        ),
-      ),
-      actions: <Widget>[
-        PopupMenuButton(
-          color: myConstants.primaryColor.withOpacity(1),
-          onSelected: (selectedValue) {
-            if (selectedValue == "Add") {
-              showCupertinoModalPopup(
-                context: context,
-                builder: (BuildContext context) {
-                  return NewCitiesPicker(addNewCity);
-                },
-              );
-            }
-          },
-          icon: const Icon(
-            Icons.menu,
-            color: Colors.white,
-          ),
-          itemBuilder: (_) => [
-            const PopupMenuItem(
-              textStyle: TextStyle(
-                fontFamily: 'RussoOne',
-                fontSize: 20,
-              ),
-              value: "Add",
-              child: Text("Add"),
-            ),
-            const PopupMenuItem(
-              textStyle: TextStyle(
-                fontFamily: 'RussoOne',
-                fontSize: 20,
-              ),
-              value: "C",
-              child: Text("C"),
-            ),
-            const PopupMenuItem(
-              textStyle: TextStyle(
-                fontFamily: 'RussoOne',
-                fontSize: 20,
-              ),
-              value: "F",
-              child: Text("F"),
-            ),
-          ],
-        ),
-      ],
-    );
+    final appBar = CustomAppBar(addNewCity, context);
 
     return Scaffold(
       backgroundColor: myConstants.pageColor.withOpacity(1),
-      appBar: appBar,
-      body: UserCitiesList(_myCities),
+      appBar: AppBar(
+        backgroundColor: myConstants.pageColor,
+        elevation: 0.0,
+        centerTitle: false,
+        titleSpacing: 0,
+        title: appBar.getTitle(),
+        actions: appBar.getActions(),
+      ),
+
+      body: SafeArea(
+        child: Obx(
+          () => geolocator.checkLoading().isTrue
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : SingleChildScrollView(
+                  child: Container(
+                    width: size.width,
+                    child: Column(
+                      children: [
+                        const CurrentWeather(),
+                        UserCitiesList(_myCities),
+                      ],
+                    ),
+                  ),
+                ),
+        ),
+      ),
     );
   }
 }
