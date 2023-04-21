@@ -21,6 +21,8 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
+// https://api.openweathermap.org/data/3.0/onecall?lat=lat&lon=-lon&appid=1753363c1503391bf24468975ae119ef
+
 final List<CitiesWeatherModel> _myCities = [
   CitiesWeatherModel("Potsdam"),
   CitiesWeatherModel("Dushanbe"),
