@@ -1,15 +1,19 @@
+// ignore_for_file: avoid_print, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 
 import '../../../models/constants.dart';
 
-import '../../../controllers/global_controller.dart';
+import '../../../server/geolocator.dart';
 
 import '../../detailed_weather/detailed_weather.dart';
 
+// const APIkey = "1753363c1503391bf24468975ae119ef";
+
 class CurrentWeather extends StatefulWidget {
-  const CurrentWeather({Key key}) : super(key: key);
+  const CurrentWeather();
 
   @override
   State<CurrentWeather> createState() => _CurrentWeatherState();
@@ -18,27 +22,10 @@ class CurrentWeather extends StatefulWidget {
 class _CurrentWeatherState extends State<CurrentWeather> {
   String city = "";
 
-  final GlobalController globalController =
-      Get.put(GlobalController(), permanent: true);
+  final GeolocatorController geolocator =
+      Get.put(GeolocatorController(), permanent: true);
 
-  @override
-  void initState() {
-    getAddress(globalController.getLatitude().value,
-        globalController.getLongitude().value);
-    super.initState();
-  }
-
-  getAddress(lat, lot) async {
-    List<Placemark> placemark = await placemarkFromCoordinates(lat, lot);
-
-    Placemark place = placemark[0];
-
-    setState(() {
-      city = place.locality;
-    });
-  }
-
-  void _selectedDetailedWeather(BuildContext context, city) {
+  void pushDetailedWeather(BuildContext context, city) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: ((ctx) => DetailedWeather(city)),
@@ -47,12 +34,27 @@ class _CurrentWeatherState extends State<CurrentWeather> {
   }
 
   @override
+  void initState() {
+    getAddress(geolocator.getLatitude().value, geolocator.getLongitude().value);
+    super.initState();
+  }
+
+  getAddress(lat, lot) async {
+    List<Placemark> placemark = await placemarkFromCoordinates(lat, lot);
+    Placemark place = placemark[0];
+    setState(() {
+      city = place.locality;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     Constants myConstants = Constants();
+
     return InkWell(
       onTap: () {
-        _selectedDetailedWeather(context, city);
+        pushDetailedWeather(context, "My Location");
       },
       child: Container(
         padding: const EdgeInsets.all(10),

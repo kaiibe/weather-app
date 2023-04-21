@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 
-import '../../../controllers/global_controller.dart';
+
 
 import '../../../models/city_weather_model.dart';
 import '../../../models/constants.dart';

@@ -1,11 +1,8 @@
 // ignore_for_file: prefer_initializing_formals, unnecessary_this, avoid_print
 
-import 'package:geolocator/geolocator.dart';
-import 'package:get/get.dart';
+const apiKey = "1753363c1503391bf24468975ae119ef";
 
-import '../controllers/global_controller.dart';
 class CitiesWeatherModel {
-
   String id;
   String name;
   String time;

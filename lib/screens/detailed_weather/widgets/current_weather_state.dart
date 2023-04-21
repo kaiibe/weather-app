@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 import '../../../models/constants.dart';
 
 class CurrentWeatherState extends StatelessWidget {
@@ -9,6 +10,7 @@ class CurrentWeatherState extends StatelessWidget {
   Widget build(BuildContext context) {
     Constants myConstants = Constants();
     Size size = MediaQuery.of(context).size;
+
 
     return SizedBox(
       width: size.width,
