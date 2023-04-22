@@ -24,9 +24,9 @@ class Home extends StatefulWidget {
 // https://api.openweathermap.org/data/3.0/onecall?lat=lat&lon=-lon&appid=1753363c1503391bf24468975ae119ef
 
 final List<CitiesWeatherModel> _myCities = [
-  CitiesWeatherModel("Potsdam"),
-  CitiesWeatherModel("Dushanbe"),
-  CitiesWeatherModel("Dubai"),
+  // CitiesWeatherModel("Potsdam"),
+  // CitiesWeatherModel("Dushanbe"),
+  // CitiesWeatherModel("Dubai"),
 ];
 
 class _HomeState extends State<Home> {
@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
     void addNewCity(String city) {
       if (city != "" && city != "None") {
         setState(() {
-          _myCities.add(CitiesWeatherModel(city));
+          //_myCities.add(CitiesWeatherModel(city));
         });
       }
     }
