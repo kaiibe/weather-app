@@ -18,6 +18,7 @@ dependencies:
   http: ^0.13.5
   get: ^4.6.5
   sleek_circular_slider: ^2.0.1
+  timezone: ^0.7.0
 
 dev_dependencies:
   flutter_test:

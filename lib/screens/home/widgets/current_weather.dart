@@ -55,7 +55,6 @@ class _CurrentWeatherState extends State<CurrentWeather> {
     setState(() {
       temperature = myLocationWeatherData.temperature;
       weatherCondition = myLocationWeatherData.weatherCondition;
-      print(weatherCondition);
     });
   }
 
@@ -64,7 +63,6 @@ class _CurrentWeatherState extends State<CurrentWeather> {
     lat = geolocator.getLatitude().value;
     lon = geolocator.getLongitude().value;
     getAddress(lat, lon);
-    //getWeatherData();
 
     getWeatherData();
 

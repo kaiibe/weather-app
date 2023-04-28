@@ -4,14 +4,14 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-const apiKey = "1753363c1503391bf24468975ae119ef";
+const apiKey = "89a2173d9e7a8557d64eab9d8889aaea";
 
 class CitiesWeatherModel {
   double lat, lon;
-  String name;
-  String time;
-  String temperature;
-  String weatherCondition;
+  String name = "Loading...";
+  String time= "Loading...";
+  String temperature= "Loading...";
+  String weatherCondition= "Loading...";
 
   CitiesWeatherModel(double latitude, longitude) {
     lat = latitude;
@@ -19,9 +19,8 @@ class CitiesWeatherModel {
   }
 
   Future<void> getWeatherData() async {
-    print("$lat $lon");
     String url =
-        'https://api.openweathermap.org/data/3.0/onecall?lat=$lat&lon=$lon&appid=1753363c1503391bf24468975ae119ef';
+        'https://api.openweathermap.org/data/3.0/onecall?lat=$lat&lon=$lon&appid=$apiKey';
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
