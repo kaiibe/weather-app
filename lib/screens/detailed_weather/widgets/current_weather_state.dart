@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 
-
 import '../../../models/constants.dart';
 
 class CurrentWeatherState extends StatelessWidget {
-  const CurrentWeatherState({Key key}) : super(key: key);
+  final String temperature;
+  final String weatherCondition;
+  final String currentWeatherIconId;
+  const CurrentWeatherState(
+      this.temperature, this.weatherCondition, this.currentWeatherIconId,
+      {Key key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Constants myConstants = Constants();
     Size size = MediaQuery.of(context).size;
 
-
     return SizedBox(
       width: size.width,
       height: 200,
-      //color: Colors.white,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -23,7 +26,7 @@ class CurrentWeatherState extends StatelessWidget {
             top: 50,
             left: 20,
             child: Text(
-              "18°C",
+              temperature,
               style: TextStyle(
                 fontSize: 60,
                 fontFamily: 'RussoOne',
@@ -35,7 +38,7 @@ class CurrentWeatherState extends StatelessWidget {
             top: 130,
             left: 20,
             child: Text(
-              "Thunderstorm",
+              weatherCondition,
               style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'RussoOne',
@@ -49,10 +52,9 @@ class CurrentWeatherState extends StatelessWidget {
             child: Container(
               width: 130,
               height: 130,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("assets/images/thunderstorm.png"),
-                  fit: BoxFit.cover,
+                  image: AssetImage("assets/images/$currentWeatherIconId.png"),
                 ),
               ),
             ),

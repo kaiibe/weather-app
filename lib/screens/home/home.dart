@@ -1,17 +1,12 @@
-// ignore_for_file: sized_box_for_whitespace
-
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '/models/constants.dart';
-import '../../models/city_weather_model.dart';
 
 import '../../server/geolocator.dart';
 
 import './widgets/app_bar.dart';
 import 'widgets/user_cities_list.dart';
-import './widgets/new_cities_picker.dart';
 import './widgets/current_weather.dart';
 
 class Home extends StatefulWidget {
@@ -23,6 +18,8 @@ class Home extends StatefulWidget {
 
 
 final List<String> _myCities = [
+  "Lviv",
+  "Seoul",
   "Potsdam",
   "Dushanbe",
   "Dubai",
@@ -65,7 +62,7 @@ class _HomeState extends State<Home> {
                   child: CircularProgressIndicator(),
                 )
               : SingleChildScrollView(
-                  child: Container(
+                  child: SizedBox(
                     width: size.width,
                     child: Column(
                       children: [

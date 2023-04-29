@@ -30,7 +30,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/thunderstorm.png
+    - assets/images/
 
   fonts:
     - family: RussoOne

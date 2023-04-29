@@ -1,8 +1,6 @@
-// ignore_for_file: avoid_print, sized_box_for_whitespace
-
 import 'package:flutter/material.dart';
 
-import '../../../models/my_city_weather_model.dart';
+import '../../../models/weather_model.dart';
 import '../../../models/constants.dart';
 import '../../detailed_weather/detailed_weather.dart';
 
@@ -15,18 +13,18 @@ class UserCitiesList extends StatefulWidget {
   State<UserCitiesList> createState() => _UserCitiesListState();
 }
 
-void _selectedDetailedWeather(BuildContext context, String city) {
+void _selectedDetailedWeather(BuildContext context, WeatherModel data) {
   Navigator.of(context).push(
     MaterialPageRoute(
-      builder: ((ctx) => DetailedWeather(city)),
+      builder: ((ctx) => DetailedWeather(data)),
     ),
   );
 }
 
 class _UserCitiesListState extends State<UserCitiesList> {
 
-  Future<MyCitiesWeatherModel> getWeatherData(String city) async {
-    final data = MyCitiesWeatherModel(city);
+  Future<WeatherModel> getWeatherData(String city) async {
+    final data = WeatherModel(city: city);
     await data.getWeatherData();
     return data;
   }
@@ -40,13 +38,14 @@ class _UserCitiesListState extends State<UserCitiesList> {
     for (int index = 0; index < widget.myCities.length; index++) {
       final data = getWeatherData(widget.myCities[index]);
       containers.add(
-        FutureBuilder<MyCitiesWeatherModel>(
+        FutureBuilder<WeatherModel>(
           future: data,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
+              final data = snapshot.data;
               return InkWell(
                 onTap: () {
-                  _selectedDetailedWeather(context, widget.myCities[index]);
+                  _selectedDetailedWeather(context, data);
                 },
                 child: Container(
                   padding: const EdgeInsets.all(10),

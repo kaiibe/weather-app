@@ -1,25 +1,24 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
-
 import 'package:flutter/material.dart';
 
 import '../../../models/constants.dart';
 
 class HourlyForecasts extends StatelessWidget {
-  const HourlyForecasts({Key key}) : super(key: key);
+  final List<List<String>> hourly;
+  const HourlyForecasts(this.hourly, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Constants myConstants = Constants();
     Size size = MediaQuery.of(context).size;
 
-    return Container(
+    return SizedBox(
       width: size.width,
       height: 160,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
           children: List.generate(
-            7,
+            24,
             (index) => Container(
               margin: const EdgeInsets.all(6),
               width: 120,
@@ -31,7 +30,7 @@ class HourlyForecasts extends StatelessWidget {
               child: Column(children: [
                 Padding(padding: EdgeInsets.only(top: 15)),
                 Text(
-                  "10am",
+                  hourly[index][0],
                   style: TextStyle(
                     fontSize: 20,
                     fontFamily: 'RussoOne',
@@ -46,7 +45,8 @@ class HourlyForecasts extends StatelessWidget {
                   height: 60,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage("assets/images/thunderstorm.png"),
+                      image:
+                          AssetImage("assets/images/${hourly[index][1]}.png"),
                     ),
                   ),
                 ),
@@ -54,7 +54,7 @@ class HourlyForecasts extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  "18°C",
+                  hourly[index][2],
                   style: TextStyle(
                     fontSize: 20,
                     fontFamily: 'RussoOne',

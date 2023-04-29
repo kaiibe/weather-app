@@ -1,17 +1,15 @@
-// ignore_for_file: sized_box_for_whitespace, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, prefer_const_constructors
-
 import 'package:flutter/material.dart';
 
 import '../../../models/constants.dart';
-import '../../models/city_weather_model.dart';
+import '../../models/weather_model.dart';
 
 import './widgets/current_weather_state.dart';
 import './widgets/hourly_forecast.dart';
 import './widgets/weekly_forecasts.dart';
 
 class DetailedWeather extends StatelessWidget {
-  final String city;
-  const DetailedWeather(this.city, {Key key}) : super(key: key);
+  final WeatherModel weatherData;
+  const DetailedWeather(this.weatherData, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +22,8 @@ class DetailedWeather extends StatelessWidget {
         elevation: 0.0,
         backgroundColor: myConstants.pageColor,
         title: Text(
-          city,
-          style: TextStyle(
+          weatherData.name,
+          style: const TextStyle(
             fontSize: 30,
             fontFamily: 'RussoOne',
             color: Colors.white,
@@ -33,13 +31,13 @@ class DetailedWeather extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           width: size.width,
           child: Column(
             children: [
-              CurrentWeatherState(),
-              HourlyForecasts(),
-              WeeklyForecast(),
+              CurrentWeatherState(weatherData.temperature, weatherData.weatherCondition, weatherData.currentWeatherIconId),
+              HourlyForecasts(weatherData.hourly),
+              WeeklyForecast(weatherData.daily),
             ],
           ),
         ),
