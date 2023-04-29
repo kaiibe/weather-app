@@ -3,26 +3,26 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../models/constants.dart';
 
-import '../widgets/new_cities_picker.dart';
+import '../widgets/new_city.dart';
 
 class CustomAppBar {
   final Function addNewCity;
+  final Function changeTemperature;
   BuildContext ctx;
 
-  CustomAppBar(this.addNewCity, this.ctx);
+  CustomAppBar(this.addNewCity, this.changeTemperature, this.ctx);
 
   Constants myConstants = Constants();
 
   Widget getTitle() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      //width: size.width,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: const [
           Text(
-            "Weather",
+            "Weather App",
             style: TextStyle(
               fontFamily: 'RussoOne',
             ),
@@ -41,9 +41,13 @@ class CustomAppBar {
             showCupertinoModalPopup(
               context: ctx,
               builder: (BuildContext context) {
-                return NewCitiesPicker(addNewCity);
+                return NewCity(addNewCity);
               },
             );
+          } else if (selectedValue == "C") {
+            changeTemperature("C");
+          } else if (selectedValue == "F") {
+            changeTemperature("F");
           }
         },
         icon: const Icon(

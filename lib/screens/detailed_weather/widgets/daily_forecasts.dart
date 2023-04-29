@@ -3,9 +3,9 @@ import 'package:flutter/widgets.dart';
 
 import '../../../models/constants.dart';
 
-class WeeklyForecast extends StatelessWidget {
+class DailyForecast extends StatelessWidget {
   final List<List<String>> daily;
-  const WeeklyForecast(this.daily, {Key key}) : super(key: key);
+  const DailyForecast(this.daily, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

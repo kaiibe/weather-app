@@ -16,14 +16,13 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-
 final List<String> _myCities = [
   "Lviv",
-  "Seoul",
-  "Potsdam",
   "Dushanbe",
   "Dubai",
 ];
+
+bool isCelsius = true;
 
 class _HomeState extends State<Home> {
   final GeolocatorController geolocator =
@@ -42,7 +41,19 @@ class _HomeState extends State<Home> {
       }
     }
 
-    final appBar = CustomAppBar(addNewCity, context);
+    void changeTemperature(String condition) {
+      if (isCelsius && condition == 'F') {
+        setState(() {
+          isCelsius = false;
+        });
+      } else if (!isCelsius && condition == "C") {
+        setState(() {
+          isCelsius = true;
+        });
+      }
+    }
+
+    final appBar = CustomAppBar(addNewCity, changeTemperature, context);
 
     return Scaffold(
       backgroundColor: myConstants.pageColor.withOpacity(1),
@@ -54,7 +65,6 @@ class _HomeState extends State<Home> {
         title: appBar.getTitle(),
         actions: appBar.getActions(),
       ),
-
       body: SafeArea(
         child: Obx(
           () => geolocator.checkLoading().isTrue
@@ -66,8 +76,8 @@ class _HomeState extends State<Home> {
                     width: size.width,
                     child: Column(
                       children: [
-                        const CurrentWeather(),
-                        UserCitiesList(_myCities),
+                        CurrentWeather(isCelsius),
+                        UserCitiesList(_myCities, isCelsius),
                       ],
                     ),
                   ),

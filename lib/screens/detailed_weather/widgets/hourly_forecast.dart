@@ -28,7 +28,7 @@ class HourlyForecasts extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Column(children: [
-                Padding(padding: EdgeInsets.only(top: 15)),
+                const Padding(padding: EdgeInsets.only(top: 15)),
                 Text(
                   hourly[index][0],
                   style: TextStyle(
@@ -37,7 +37,7 @@ class HourlyForecasts extends StatelessWidget {
                     color: myConstants.titleColor,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Container(
@@ -50,7 +50,7 @@ class HourlyForecasts extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Text(

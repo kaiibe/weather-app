@@ -1,16 +1,21 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:http/http.dart' as http;
 
-const apiKey = "89a2173d9e7a8557d64eab9d8889aaea";
+// 1753363c1503391bf24468975ae119ef
+// 89a2173d9e7a8557d64eab9d8889aaea
+const apiKey = "1753363c1503391bf24468975ae119ef";
 
 class WeatherModel {
   double lat, lon;
   String name = "Loading...";
   String time = "Loading...";
-  String temperature = "Loading...";
+  String celsiusTemperature = "Loading...";
+  String fahrenheitTemperature = "Loading...";
   String weatherCondition = "Loading...";
   String currentWeatherIconId;
   List<List<String>> hourly = [];
@@ -45,7 +50,7 @@ class WeatherModel {
     if (weatherResponse.statusCode == 200) {
       final weatherData = json.decode(weatherResponse.body);
 
-      temperature = getTemperature(weatherData['current']['temp']);
+      setTemperature(weatherData['current']['temp']);
       weatherCondition =
           getWeatherCondition(weatherData['current']['weather'][0]['main']);
 
@@ -70,7 +75,7 @@ class WeatherModel {
 
         final temp = (weatherData['hourly'][i]['temp'] - 273.15).round();
         cnt.add("$temp°C");
-        
+
         hourly.add(cnt);
       }
 
@@ -92,21 +97,15 @@ class WeatherModel {
     }
   }
 
+  void setTemperature(temperature) {
+    int celsiusTemp = (temperature - 273.15).round();
+    int fahrenheitTemp = (celsiusTemp * 9 / 5 + 32).round();
 
-  String getTemperature(temperature) {
-    int temp = (temperature - 273.15).round();
-    return "$temp°C";
+    celsiusTemperature = "$celsiusTemp°C";
+    fahrenheitTemperature = "$fahrenheitTemp°F";
   }
 
   String getWeatherCondition(condition) {
     return condition;
-  }
-
-  Future<String> getTime(timeZone) async {
-    tz.initializeTimeZones();
-    var timezone = tz.getLocation(timeZone);
-    var now = tz.TZDateTime.now(timezone);
-    String formattedTime = DateFormat('HH:mm').format(now);
-    return formattedTime;
   }
 }

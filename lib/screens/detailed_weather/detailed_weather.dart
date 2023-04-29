@@ -5,7 +5,7 @@ import '../../models/weather_model.dart';
 
 import './widgets/current_weather_state.dart';
 import './widgets/hourly_forecast.dart';
-import './widgets/weekly_forecasts.dart';
+import 'widgets/daily_forecasts.dart';
 
 class DetailedWeather extends StatelessWidget {
   final WeatherModel weatherData;
@@ -35,9 +35,9 @@ class DetailedWeather extends StatelessWidget {
           width: size.width,
           child: Column(
             children: [
-              CurrentWeatherState(weatherData.temperature, weatherData.weatherCondition, weatherData.currentWeatherIconId),
+              CurrentWeatherState(weatherData.celsiusTemperature, weatherData.weatherCondition, weatherData.currentWeatherIconId),
               HourlyForecasts(weatherData.hourly),
-              WeeklyForecast(weatherData.daily),
+              DailyForecast(weatherData.daily),
             ],
           ),
         ),

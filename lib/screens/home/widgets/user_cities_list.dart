@@ -6,8 +6,9 @@ import '../../detailed_weather/detailed_weather.dart';
 
 class UserCitiesList extends StatefulWidget {
   final List<String> myCities;
+  final bool isCelsius;
 
-  const UserCitiesList(this.myCities, {Key key}) : super(key: key);
+  const UserCitiesList(this.myCities, this.isCelsius, {Key key}) : super(key: key);
 
   @override
   State<UserCitiesList> createState() => _UserCitiesListState();
@@ -22,7 +23,6 @@ void _selectedDetailedWeather(BuildContext context, WeatherModel data) {
 }
 
 class _UserCitiesListState extends State<UserCitiesList> {
-
   Future<WeatherModel> getWeatherData(String city) async {
     final data = WeatherModel(city: city);
     await data.getWeatherData();
@@ -88,7 +88,7 @@ class _UserCitiesListState extends State<UserCitiesList> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                snapshot.data.temperature,
+                                widget.isCelsius ? snapshot.data.celsiusTemperature : snapshot.data.fahrenheitTemperature,
                                 style: TextStyle(
                                     fontSize: 25,
                                     fontFamily: 'RussoOne',
@@ -129,4 +129,3 @@ class _UserCitiesListState extends State<UserCitiesList> {
     return Column(children: containers);
   }
 }
-

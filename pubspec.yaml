@@ -19,6 +19,7 @@ dependencies:
   get: ^4.6.5
   sleek_circular_slider: ^2.0.1
   timezone: ^0.7.0
+  csc_picker: ^0.2.7
 
 dev_dependencies:
   flutter_test:

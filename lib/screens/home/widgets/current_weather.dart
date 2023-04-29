@@ -10,7 +10,8 @@ import '../../../server/geolocator.dart';
 import '../../detailed_weather/detailed_weather.dart';
 
 class CurrentWeather extends StatefulWidget {
-  const CurrentWeather({Key key}) : super(key: key);
+  final bool isCelsius;
+  const CurrentWeather(this.isCelsius, {Key key}) : super(key: key);
 
   @override
   State<CurrentWeather> createState() => _CurrentWeatherState();
@@ -51,7 +52,8 @@ class _CurrentWeatherState extends State<CurrentWeather> {
     super.initState();
   }
 
-  Future<WeatherModel> getWeatherData(double lat, double lon, String city) async {
+  Future<WeatherModel> getWeatherData(
+      double lat, double lon, String city) async {
     final data = WeatherModel(latitude: lat, longitude: lat, city: city);
     await data.getWeatherData();
     return data;
@@ -112,7 +114,9 @@ class _CurrentWeatherState extends State<CurrentWeather> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            data.temperature,
+                            widget.isCelsius
+                                ? data.celsiusTemperature
+                                : data.fahrenheitTemperature,
                             style: TextStyle(
                                 fontSize: 25,
                                 fontFamily: 'RussoOne',
