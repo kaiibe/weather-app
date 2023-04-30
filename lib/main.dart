@@ -1,3 +1,5 @@
+// TODO: Logo Design, F option in detailed page 
+
 import 'package:flutter/material.dart';
 import 'screens/home/home.dart';
 

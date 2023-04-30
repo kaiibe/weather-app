@@ -23,7 +23,7 @@ class _NewCityState extends State<NewCity> {
 
     return Material(
       child: Container(
-        height: 300,
+        height: 500,
         padding: const EdgeInsets.all(20),
         color: myConstants.pageColor.withOpacity(1),
         child: Column(

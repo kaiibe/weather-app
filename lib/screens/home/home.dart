@@ -56,6 +56,7 @@ class _HomeState extends State<Home> {
     final appBar = CustomAppBar(addNewCity, changeTemperature, context);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: myConstants.pageColor.withOpacity(1),
       appBar: AppBar(
         backgroundColor: myConstants.pageColor,
