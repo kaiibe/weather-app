@@ -4,7 +4,8 @@ import '../../../models/constants.dart';
 
 class HourlyForecasts extends StatelessWidget {
   final List<List<String>> hourly;
-  const HourlyForecasts(this.hourly, {Key key}) : super(key: key);
+  bool isCelsius;
+  HourlyForecasts(this.hourly, this.isCelsius, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class HourlyForecasts extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  hourly[index][2],
+                  isCelsius ? hourly[index][2] : hourly[index][3],
                   style: TextStyle(
                     fontSize: 20,
                     fontFamily: 'RussoOne',

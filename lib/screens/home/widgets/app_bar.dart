@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:pull_down_button/pull_down_button.dart';
+import 'package:weather/screens/home/widgets/new_cities_picker.dart';
 
 import '../../../models/constants.dart';
-
-import '../widgets/new_city.dart';
 
 class CustomAppBar {
   final Function addNewCity;
   final Function changeTemperature;
+  final bool isCelsius;
   BuildContext ctx;
 
-  CustomAppBar(this.addNewCity, this.changeTemperature, this.ctx);
+  CustomAppBar(
+      this.addNewCity, this.changeTemperature, this.isCelsius, this.ctx);
 
   Constants myConstants = Constants();
+
+  bool isFahrenheit = false;
 
   Widget getTitle() {
     return Container(
@@ -33,54 +37,107 @@ class CustomAppBar {
   }
 
   List<Widget> getActions() {
+    if (!isCelsius) {
+      isFahrenheit = true;
+    }
     return [
-      PopupMenuButton(
-        color: myConstants.primaryColor.withOpacity(1),
-        onSelected: (selectedValue) {
-          if (selectedValue == "Add") {
-            showCupertinoModalPopup(
-              context: ctx,
-              builder: (BuildContext context) {
-                return NewCity(addNewCity);
-              },
-            );
-          } else if (selectedValue == "C") {
-            changeTemperature("C");
-          } else if (selectedValue == "F") {
-            changeTemperature("F");
-          }
-        },
-        icon: const Icon(
-          Icons.menu,
-          color: Colors.white,
-        ),
-        itemBuilder: (_) => [
-          const PopupMenuItem(
-            textStyle: TextStyle(
-              fontFamily: 'RussoOne',
-              fontSize: 20,
-            ),
-            value: "Add",
-            child: Text("Add"),
+      PullDownButton(
+        itemBuilder: (context) => [
+          PullDownMenuItem(
+            title: 'Edit List',
+            onTap: () {},
+            icon: Icons.edit,
           ),
-          const PopupMenuItem(
-            textStyle: TextStyle(
-              fontFamily: 'RussoOne',
-              fontSize: 20,
-            ),
-            value: "C",
-            child: Text("C"),
+          const PullDownMenuDivider.large(),
+          PullDownMenuItem.selectable(
+            selected: isCelsius,
+            title: 'Celsius',
+            onTap: () {
+              changeTemperature("C");
+            },
           ),
-          const PopupMenuItem(
-            textStyle: TextStyle(
-              fontFamily: 'RussoOne',
-              fontSize: 20,
-            ),
-            value: "F",
-            child: Text("F"),
+          PullDownMenuItem.selectable(
+            title: 'Fahrenheit',
+            selected: isFahrenheit,
+            onTap: () {
+              changeTemperature("F");
+            },
           ),
         ],
-      ),
+        buttonBuilder: (context, showMenu) => CupertinoButton(
+          onPressed: showMenu,
+          padding: EdgeInsets.zero,
+          child: const Icon(
+            CupertinoIcons.ellipsis_circle,
+            color: Colors.white,
+          ),
+        ),
+      )
     ];
   }
 }
+
+
+
+
+
+
+// PopupMenuButton(
+      //   color: myConstants.primaryColor.withOpacity(1),
+      //   onSelected: (selectedValue) {
+      //     if (selectedValue == "Add") {
+      //       showCupertinoModalPopup(
+      //         context: ctx,
+      //         builder: (BuildContext context) {
+      //           return NewCitiesPicker(addNewCity);
+      //         },
+      //       );
+      //     } else if (selectedValue == "C") {
+      //       changeTemperature("C");
+      //     } else if (selectedValue == "F") {
+      //       changeTemperature("F");
+      //     }
+      //   },
+      //   icon: const Icon(
+      //     Icons.menu,
+      //     color: Colors.white,
+      //   ),
+      //   itemBuilder: (_) => [
+      //     const PopupMenuItem(
+      //       textStyle: TextStyle(
+      //         fontFamily: 'RussoOne',
+      //         fontSize: 20,
+      //       ),
+      //       value: "Add",
+      //       child: Text("Add"),
+      //     ),
+      //     PopupMenuItem(
+      //       textStyle: const TextStyle(
+      //         fontFamily: 'RussoOne',
+      //         fontSize: 20,
+      //       ),
+      //       value: "C",
+      //       child: Row(
+      //         children: [
+      //           const Text("°C"),
+      //           const Spacer(),
+      //           isCelsius ? const Icon(Icons.check) : const Text(""),
+      //         ],
+      //       ),
+      //     ),
+      //     PopupMenuItem(
+      //       textStyle: const TextStyle(
+      //         fontFamily: 'RussoOne',
+      //         fontSize: 20,
+      //       ),
+      //       value: "F",
+      //       child: Row(
+      //         children: [
+      //           const Text("°F"),
+      //           const Spacer(),
+      //           isCelsius ? const Text("") : const Icon(Icons.check),
+      //         ],
+      //       ),
+      //     ),
+      //   ],
+      // ),

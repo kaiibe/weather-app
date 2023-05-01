@@ -14,19 +14,26 @@ class UserCitiesList extends StatefulWidget {
   State<UserCitiesList> createState() => _UserCitiesListState();
 }
 
-void _selectedDetailedWeather(BuildContext context, WeatherModel data) {
+void _selectedDetailedWeather(BuildContext context, WeatherModel data, bool isCelsius) {
   Navigator.of(context).push(
     MaterialPageRoute(
-      builder: ((ctx) => DetailedWeather(data)),
+      builder: ((ctx) => DetailedWeather(data, isCelsius)),
     ),
   );
 }
 
 class _UserCitiesListState extends State<UserCitiesList> {
+  Map<String, WeatherModel> cachedWeatherData = {};
+
   Future<WeatherModel> getWeatherData(String city) async {
-    final data = WeatherModel(city: city);
-    await data.getWeatherData();
-    return data;
+    if (cachedWeatherData.containsKey(city)) {
+      return cachedWeatherData[city];
+    } else {
+      final data = WeatherModel(city: city);
+      await data.getWeatherData();
+      cachedWeatherData[city] = data;
+      return data;
+    }
   }
 
   @override
@@ -45,7 +52,7 @@ class _UserCitiesListState extends State<UserCitiesList> {
               final data = snapshot.data;
               return InkWell(
                 onTap: () {
-                  _selectedDetailedWeather(context, data);
+                  _selectedDetailedWeather(context, data, widget.isCelsius);
                 },
                 child: Container(
                   padding: const EdgeInsets.all(10),

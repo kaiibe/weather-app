@@ -9,7 +9,8 @@ import 'widgets/daily_forecasts.dart';
 
 class DetailedWeather extends StatelessWidget {
   final WeatherModel weatherData;
-  const DetailedWeather(this.weatherData, {Key key}) : super(key: key);
+  final bool isCelsius;
+  const DetailedWeather(this.weatherData, this.isCelsius, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +36,12 @@ class DetailedWeather extends StatelessWidget {
           width: size.width,
           child: Column(
             children: [
-              CurrentWeatherState(weatherData.celsiusTemperature, weatherData.weatherCondition, weatherData.currentWeatherIconId),
-              HourlyForecasts(weatherData.hourly),
+              CurrentWeatherState(
+                  weatherData.celsiusTemperature,
+                  weatherData.fahrenheitTemperature,
+                  weatherData.weatherCondition,
+                  weatherData.currentWeatherIconId, isCelsius),
+              HourlyForecasts(weatherData.hourly, isCelsius),
               DailyForecast(weatherData.daily),
             ],
           ),

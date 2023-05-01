@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
     Constants myConstants = Constants();
 
     void addNewCity(String city) {
-      if (city != "" && city != "None") {
+      if (city != "" && city != "None" && !_myCities.contains(city)) {
         setState(() {
           _myCities.add(city);
         });
@@ -53,7 +53,7 @@ class _HomeState extends State<Home> {
       }
     }
 
-    final appBar = CustomAppBar(addNewCity, changeTemperature, context);
+    final appBar = CustomAppBar(addNewCity, changeTemperature, isCelsius, context);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,

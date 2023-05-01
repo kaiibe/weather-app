@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import '../../../models/constants.dart';
 
 class CurrentWeatherState extends StatelessWidget {
-  final String temperature;
+  final String celsiusTemperature;
+  final String fahrenheitTemperature;
   final String weatherCondition;
   final String currentWeatherIconId;
-  const CurrentWeatherState(
-      this.temperature, this.weatherCondition, this.currentWeatherIconId,
+  final bool isCelsius;
+
+  const CurrentWeatherState(this.celsiusTemperature, this.fahrenheitTemperature, this.weatherCondition,
+      this.currentWeatherIconId, this.isCelsius,
       {Key key})
       : super(key: key);
 
@@ -26,7 +29,7 @@ class CurrentWeatherState extends StatelessWidget {
             top: 50,
             left: 20,
             child: Text(
-              temperature,
+              isCelsius ? celsiusTemperature : fahrenheitTemperature,
               style: TextStyle(
                 fontSize: 60,
                 fontFamily: 'RussoOne',

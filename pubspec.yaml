@@ -20,6 +20,7 @@ dependencies:
   sleek_circular_slider: ^2.0.1
   timezone: ^0.7.0
   csc_picker: ^0.2.7
+  pull_down_button: ^0.8.3
 
 dev_dependencies:
   flutter_test:

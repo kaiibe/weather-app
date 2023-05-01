@@ -40,7 +40,7 @@ class GeolocatorController extends GetxController {
     }
 
     return await Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.low)
+            desiredAccuracy: LocationAccuracy.best)
         .then(
       (value) {
         _latitude.value = value.latitude;

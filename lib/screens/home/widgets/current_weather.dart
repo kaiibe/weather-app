@@ -21,16 +21,18 @@ class _CurrentWeatherState extends State<CurrentWeather> {
   String city = "";
   double lat, lon;
 
+  WeatherModel weatherData;
+
   String temperature = "Loading...";
   String weatherCondition = "Loading...";
 
   final GeolocatorController geolocator =
       Get.put(GeolocatorController(), permanent: true);
 
-  void pushDetailedWeather(BuildContext context, WeatherModel data) {
+  void pushDetailedWeather(BuildContext context, WeatherModel data, bool isCelsius) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: ((ctx) => DetailedWeather(data)),
+        builder: ((ctx) => DetailedWeather(data, isCelsius)),
       ),
     );
   }
@@ -54,8 +56,12 @@ class _CurrentWeatherState extends State<CurrentWeather> {
 
   Future<WeatherModel> getWeatherData(
       double lat, double lon, String city) async {
-    final data = WeatherModel(latitude: lat, longitude: lat, city: city);
+    if (weatherData != null) {
+      return weatherData; 
+    }
+    final data = WeatherModel(city: city);
     await data.getWeatherData();
+    weatherData = data; 
     return data;
   }
 
@@ -69,9 +75,10 @@ class _CurrentWeatherState extends State<CurrentWeather> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final data = snapshot.data;
+          weatherData = data;
           return InkWell(
             onTap: () {
-              pushDetailedWeather(context, data);
+              pushDetailedWeather(context, data, widget.isCelsius);
             },
             child: Container(
               padding: const EdgeInsets.all(10),
