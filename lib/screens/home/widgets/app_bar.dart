@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pull_down_button/pull_down_button.dart';
-import 'package:weather/screens/home/widgets/new_cities_picker.dart';
 
 import '../../../models/constants.dart';
 
@@ -9,10 +8,12 @@ class CustomAppBar {
   final Function addNewCity;
   final Function changeTemperature;
   final bool isCelsius;
+  final Function editMode;
+  final bool isEditMode;
   BuildContext ctx;
 
-  CustomAppBar(
-      this.addNewCity, this.changeTemperature, this.isCelsius, this.ctx);
+  CustomAppBar(this.addNewCity, this.changeTemperature, this.editMode,
+      this.isCelsius, this.isEditMode, this.ctx);
 
   Constants myConstants = Constants();
 
@@ -41,38 +42,57 @@ class CustomAppBar {
       isFahrenheit = true;
     }
     return [
-      PullDownButton(
-        itemBuilder: (context) => [
-          PullDownMenuItem(
-            title: 'Edit List',
-            onTap: () {},
-            icon: Icons.edit,
-          ),
-          const PullDownMenuDivider.large(),
-          PullDownMenuItem.selectable(
-            selected: isCelsius,
-            title: 'Celsius',
-            onTap: () {
-              changeTemperature("C");
-            },
-          ),
-          PullDownMenuItem.selectable(
-            title: 'Fahrenheit',
-            selected: isFahrenheit,
-            onTap: () {
-              changeTemperature("F");
-            },
-          ),
-        ],
-        buttonBuilder: (context, showMenu) => CupertinoButton(
-          onPressed: showMenu,
-          padding: EdgeInsets.zero,
-          child: const Icon(
-            CupertinoIcons.ellipsis_circle,
-            color: Colors.white,
-          ),
-        ),
-      )
+      !isEditMode
+          ? PullDownButton(
+              itemBuilder: (context) => [
+                PullDownMenuItem(
+                  title: 'Edit List',
+                  onTap: () {
+                    editMode();
+                  },
+                  icon: Icons.edit,
+                ),
+                const PullDownMenuDivider.large(),
+                PullDownMenuItem.selectable(
+                  selected: isCelsius,
+                  title: 'Celsius',
+                  onTap: () {
+                    changeTemperature("C");
+                  },
+                ),
+                PullDownMenuItem.selectable(
+                  title: 'Fahrenheit',
+                  selected: isFahrenheit,
+                  onTap: () {
+                    changeTemperature("F");
+                  },
+                ),
+              ],
+              buttonBuilder: (context, showMenu) => CupertinoButton(
+                onPressed: showMenu,
+                padding: EdgeInsets.zero,
+                child: const Icon(
+                  CupertinoIcons.ellipsis_circle,
+                  color: Colors.white,
+                ),
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: TextButton(
+                onPressed: () {
+                  editMode();
+                },
+                child: const Text(
+                  "Done",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontFamily: "RussoOne",
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            )
     ];
   }
 }
@@ -85,13 +105,13 @@ class CustomAppBar {
 // PopupMenuButton(
       //   color: myConstants.primaryColor.withOpacity(1),
       //   onSelected: (selectedValue) {
-      //     if (selectedValue == "Add") {
-      //       showCupertinoModalPopup(
-      //         context: ctx,
-      //         builder: (BuildContext context) {
-      //           return NewCitiesPicker(addNewCity);
-      //         },
-      //       );
+          // if (selectedValue == "Add") {
+          //   showCupertinoModalPopup(
+          //     context: ctx,
+          //     builder: (BuildContext context) {
+          //       return NewCitiesPicker(addNewCity);
+          //     },
+          //   );
       //     } else if (selectedValue == "C") {
       //       changeTemperature("C");
       //     } else if (selectedValue == "F") {

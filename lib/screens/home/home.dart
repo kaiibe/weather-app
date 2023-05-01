@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,8 +8,9 @@ import '/models/constants.dart';
 import '../../server/geolocator.dart';
 
 import './widgets/app_bar.dart';
-import 'widgets/user_cities_list.dart';
+import './widgets/user_cities_list.dart';
 import './widgets/current_weather.dart';
+import './widgets/add_new_city.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -23,6 +26,7 @@ final List<String> _myCities = [
 ];
 
 bool isCelsius = true;
+bool isEditMode = false;
 
 class _HomeState extends State<Home> {
   final GeolocatorController geolocator =
@@ -53,7 +57,26 @@ class _HomeState extends State<Home> {
       }
     }
 
-    final appBar = CustomAppBar(addNewCity, changeTemperature, isCelsius, context);
+    void editMode() {
+      if (!isEditMode) {
+        setState(() {
+          isEditMode = true;
+        });
+      } else {
+        setState(() {
+          isEditMode = false;
+        });
+      }
+    }
+
+    void deleteCity(String city) {
+      setState(() {
+        _myCities.remove(city);
+      });
+    }
+
+    final appBar = CustomAppBar(addNewCity, changeTemperature, editMode,
+        isCelsius, isEditMode, context);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -78,7 +101,9 @@ class _HomeState extends State<Home> {
                     child: Column(
                       children: [
                         CurrentWeather(isCelsius),
-                        UserCitiesList(_myCities, isCelsius),
+                        UserCitiesList(
+                            deleteCity, _myCities, isCelsius, isEditMode),
+                        isEditMode ? AddNewCityBlank(addNewCity) : SizedBox.shrink(),
                       ],
                     ),
                   ),

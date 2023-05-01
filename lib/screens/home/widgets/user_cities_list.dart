@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 import '../../../models/weather_model.dart';
@@ -5,16 +7,22 @@ import '../../../models/constants.dart';
 import '../../detailed_weather/detailed_weather.dart';
 
 class UserCitiesList extends StatefulWidget {
+  final Function deleteCity;
   final List<String> myCities;
   final bool isCelsius;
+  final bool isEditModel;
 
-  const UserCitiesList(this.myCities, this.isCelsius, {Key key}) : super(key: key);
+  const UserCitiesList(
+      this.deleteCity, this.myCities, this.isCelsius, this.isEditModel,
+      {Key key})
+      : super(key: key);
 
   @override
   State<UserCitiesList> createState() => _UserCitiesListState();
 }
 
-void _selectedDetailedWeather(BuildContext context, WeatherModel data, bool isCelsius) {
+void _selectedDetailedWeather(
+    BuildContext context, WeatherModel data, bool isCelsius) {
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: ((ctx) => DetailedWeather(data, isCelsius)),
@@ -95,7 +103,9 @@ class _UserCitiesListState extends State<UserCitiesList> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                widget.isCelsius ? snapshot.data.celsiusTemperature : snapshot.data.fahrenheitTemperature,
+                                widget.isCelsius
+                                    ? snapshot.data.celsiusTemperature
+                                    : snapshot.data.fahrenheitTemperature,
                                 style: TextStyle(
                                     fontSize: 25,
                                     fontFamily: 'RussoOne',
@@ -120,6 +130,22 @@ class _UserCitiesListState extends State<UserCitiesList> {
                             ],
                           ),
                         ),
+                        widget.isEditModel
+                            ? Positioned(
+                                bottom: 10,
+                                right: 10,
+                                child: IconButton(
+                                  onPressed: () {
+                                    widget.deleteCity(widget.myCities[index]);
+                                  },
+                                  icon: Icon(
+                                    Icons.delete,
+                                    color: Colors.red,
+                                    size: 35,
+                                  ),
+                                ),
+                              )
+                            : SizedBox.shrink(),
                       ],
                     ),
                   ),
