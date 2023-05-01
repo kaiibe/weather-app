@@ -21,26 +21,22 @@ class WeatherModel {
   List<List<String>> hourly = [];
   List<List<String>> daily = [];
 
-  WeatherModel({String city, double latitude, double longitude}) {
+  WeatherModel({String city}) {
     name = city;
-    lat = latitude;
-    lon = longitude;
   }
 
   Future<void> getWeatherData() async {
-    if (lat == null && lon == null) {
-      String coordsURL =
-          'https://api.openweathermap.org/geo/1.0/direct?q=$name&limit=1&appid=$apiKey';
-      final coordsResponse = await http.get(Uri.parse(coordsURL));
+    String coordsURL =
+        'https://api.openweathermap.org/geo/1.0/direct?q=$name&limit=1&appid=$apiKey';
+    final coordsResponse = await http.get(Uri.parse(coordsURL));
 
-      if (coordsResponse.statusCode == 200) {
-        final coordsJsonResponse = json.decode(coordsResponse.body);
-        lat = coordsJsonResponse[0]['lat'];
-        lon = coordsJsonResponse[0]['lon'];
-      } else {
-        print(
-            "Response Failure: Can't fetch lat and lon in my city weather model");
-      }
+    if (coordsResponse.statusCode == 200) {
+      final coordsJsonResponse = json.decode(coordsResponse.body);
+      lat = coordsJsonResponse[0]['lat'];
+      lon = coordsJsonResponse[0]['lon'];
+    } else {
+      print(
+          "Response Failure: Can't fetch lat and lon in my city weather model $name");
     }
 
     String weatherURL =
