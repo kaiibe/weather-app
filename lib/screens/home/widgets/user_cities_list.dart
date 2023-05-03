@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/routes/default_transitions.dart';
 
 import '../../../models/weather_model.dart';
 import '../../../models/constants.dart';
@@ -10,10 +11,10 @@ class UserCitiesList extends StatefulWidget {
   final Function deleteCity;
   final List<String> myCities;
   final bool isCelsius;
-  final bool isEditModel;
+  final bool isEditMode;
 
   const UserCitiesList(
-      this.deleteCity, this.myCities, this.isCelsius, this.isEditModel,
+      this.deleteCity, this.myCities, this.isCelsius, this.isEditMode,
       {Key key})
       : super(key: key);
 
@@ -50,6 +51,112 @@ class _UserCitiesListState extends State<UserCitiesList> {
     Constants myConstants = Constants();
 
     List<Widget> containers = [];
+
+    Widget citiesList(index, snapshot) {
+      return Container(
+        margin: const EdgeInsets.all(10),
+        width: size.width,
+        height: 110,
+        decoration: BoxDecoration(
+          color: myConstants.primaryColor,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Positioned(
+              top: 10,
+              left: 15,
+              child: Text(
+                widget.myCities[index],
+                style: TextStyle(
+                    fontSize: 25,
+                    fontFamily: 'RussoOne',
+                    color: myConstants.titleColor),
+              ),
+            ),
+            Positioned(
+              top: 40,
+              left: 15,
+              child: Text(
+                snapshot.data.time,
+                style: TextStyle(
+                    fontSize: 13,
+                    fontFamily: 'RussoOne',
+                    color: myConstants.titleColor),
+              ),
+            ),
+            Positioned(
+              top: 10,
+              right: 15,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.isCelsius
+                        ? snapshot.data.celsiusTemperature
+                        : snapshot.data.fahrenheitTemperature,
+                    style: TextStyle(
+                        fontSize: 25,
+                        fontFamily: 'RussoOne',
+                        color: myConstants.titleColor),
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              bottom: 10,
+              left: 15,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    snapshot.data.weatherCondition,
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'RussoOne',
+                        color: myConstants.titleColor),
+                  ),
+                ],
+              ),
+            ),
+            widget.isEditMode
+                ? Positioned(
+                    bottom: 10,
+                    right: 10,
+                    child: IconButton(
+                      onPressed: () {
+                        widget.deleteCity(widget.myCities[index]);
+                      },
+                      icon: Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                        size: 35,
+                      ),
+                    ),
+                  )
+                : SizedBox.shrink(),
+            widget.isEditMode
+                ? Positioned(
+                    bottom: 8,
+                    right: 35,
+                    child: IconButton(
+                      onPressed: () {
+                        widget.deleteCity(widget.myCities[index]);
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_ios_rounded,
+                        color: Colors.red,
+                        size: 30,
+                      ),
+                    ),
+                  )
+                : SizedBox.shrink(),
+          ],
+        ),
+      );
+    }
+
     for (int index = 0; index < widget.myCities.length; index++) {
       final data = getWeatherData(widget.myCities[index]);
       containers.add(
@@ -59,98 +166,35 @@ class _UserCitiesListState extends State<UserCitiesList> {
             if (snapshot.hasData) {
               final data = snapshot.data;
               return InkWell(
-                onTap: () {
-                  _selectedDetailedWeather(context, data, widget.isCelsius);
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                    width: size.width,
-                    height: 110,
-                    decoration: BoxDecoration(
-                      color: myConstants.primaryColor,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Positioned(
-                          top: 10,
-                          left: 15,
-                          child: Text(
-                            widget.myCities[index],
-                            style: TextStyle(
-                                fontSize: 25,
-                                fontFamily: 'RussoOne',
-                                color: myConstants.titleColor),
+                  onTap: () {
+                    if (!widget.isEditMode) {
+                      _selectedDetailedWeather(context, data, widget.isCelsius);
+                    }
+                  },
+                  child: widget.isEditMode
+                      ? Dismissible(
+                          key: Key(widget.myCities[index]),
+                          onDismissed: (direction) {
+                            widget.deleteCity(widget.myCities[index]);
+                          },
+                          background: Container(
+                            alignment: Alignment.center,
+                            margin: EdgeInsets.all(10),
+                            height: 100,
+                            decoration: BoxDecoration(
+                              color: Colors.redAccent,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                              size: 50,
+                            ),
                           ),
-                        ),
-                        Positioned(
-                          top: 40,
-                          left: 15,
-                          child: Text(
-                            snapshot.data.time,
-                            style: TextStyle(
-                                fontSize: 13,
-                                fontFamily: 'RussoOne',
-                                color: myConstants.titleColor),
-                          ),
-                        ),
-                        Positioned(
-                          top: 10,
-                          right: 15,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                widget.isCelsius
-                                    ? snapshot.data.celsiusTemperature
-                                    : snapshot.data.fahrenheitTemperature,
-                                style: TextStyle(
-                                    fontSize: 25,
-                                    fontFamily: 'RussoOne',
-                                    color: myConstants.titleColor),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 10,
-                          left: 15,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                snapshot.data.weatherCondition,
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontFamily: 'RussoOne',
-                                    color: myConstants.titleColor),
-                              ),
-                            ],
-                          ),
-                        ),
-                        widget.isEditModel
-                            ? Positioned(
-                                bottom: 10,
-                                right: 10,
-                                child: IconButton(
-                                  onPressed: () {
-                                    widget.deleteCity(widget.myCities[index]);
-                                  },
-                                  icon: Icon(
-                                    Icons.delete,
-                                    color: Colors.red,
-                                    size: 35,
-                                  ),
-                                ),
-                              )
-                            : SizedBox.shrink(),
-                      ],
-                    ),
-                  ),
-                ),
-              );
+                          direction: DismissDirection.endToStart,
+                          child: citiesList(index, snapshot),
+                        )
+                      : citiesList(index, snapshot));
             } else {
               return Container();
             }

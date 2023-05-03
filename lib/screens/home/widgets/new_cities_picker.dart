@@ -34,7 +34,7 @@ class _NewCitiesPickerState extends State<NewCitiesPicker> {
   @override
   void initState() {
     super.initState();
-    filteredCities = cities;
+    filteredCities.add(cities[0]);
   }
 
   @override
@@ -42,17 +42,18 @@ class _NewCitiesPickerState extends State<NewCitiesPicker> {
     Size size = MediaQuery.of(context).size;
     return Container(
       color: myConstants.pageColor.withOpacity(1),
-      height: 400,
+      height: 600,
       child: Column(
         children: [
           Expanded(
-            flex: 1,
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: SizedBox(
                 height: 40,
                 width: 400,
                 child: CupertinoTextField(
+                  placeholder: "Search by city",
+                  placeholderStyle: TextStyle(color: myConstants.titleColor),
                   style: TextStyle(
                     color: myConstants.titleColor,
                   ),
@@ -87,7 +88,7 @@ class _NewCitiesPickerState extends State<NewCitiesPicker> {
             ),
           ),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Align(
               alignment: Alignment.center,
               child: SizedBox(

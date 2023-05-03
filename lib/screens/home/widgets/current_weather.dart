@@ -11,7 +11,8 @@ import '../../detailed_weather/detailed_weather.dart';
 
 class CurrentWeather extends StatefulWidget {
   final bool isCelsius;
-  const CurrentWeather(this.isCelsius, {Key key}) : super(key: key);
+  bool isEditMode;
+  CurrentWeather(this.isCelsius, this.isEditMode, {Key key}) : super(key: key);
 
   @override
   State<CurrentWeather> createState() => _CurrentWeatherState();
@@ -20,7 +21,6 @@ class CurrentWeather extends StatefulWidget {
 class _CurrentWeatherState extends State<CurrentWeather> {
   String city = "";
   double lat, lon;
-
   WeatherModel weatherData;
 
   String temperature = "Loading...";
@@ -29,7 +29,8 @@ class _CurrentWeatherState extends State<CurrentWeather> {
   final GeolocatorController geolocator =
       Get.put(GeolocatorController(), permanent: true);
 
-  void pushDetailedWeather(BuildContext context, WeatherModel data, bool isCelsius) {
+  void pushDetailedWeather(
+      BuildContext context, WeatherModel data, bool isCelsius) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: ((ctx) => DetailedWeather(data, isCelsius)),
@@ -57,11 +58,11 @@ class _CurrentWeatherState extends State<CurrentWeather> {
   Future<WeatherModel> getWeatherData(
       double lat, double lon, String city) async {
     if (weatherData != null) {
-      return weatherData; 
+      return weatherData;
     }
     final data = WeatherModel(city: city);
     await data.getWeatherData();
-    weatherData = data; 
+    weatherData = data;
     return data;
   }
 
@@ -78,7 +79,9 @@ class _CurrentWeatherState extends State<CurrentWeather> {
           weatherData = data;
           return InkWell(
             onTap: () {
-              pushDetailedWeather(context, data, widget.isCelsius);
+              if (!widget.isEditMode) {
+                pushDetailedWeather(context, data, widget.isCelsius);
+              }
             },
             child: Container(
               padding: const EdgeInsets.all(10),

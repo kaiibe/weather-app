@@ -100,7 +100,7 @@ class _HomeState extends State<Home> {
                     width: size.width,
                     child: Column(
                       children: [
-                        CurrentWeather(isCelsius),
+                        CurrentWeather(isCelsius, isEditMode),
                         UserCitiesList(
                             deleteCity, _myCities, isCelsius, isEditMode),
                         isEditMode ? AddNewCityBlank(addNewCity) : SizedBox.shrink(),
