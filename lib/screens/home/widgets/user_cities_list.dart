@@ -21,11 +21,13 @@ class UserCitiesList extends StatefulWidget {
 
 void _selectedDetailedWeather(
     BuildContext context, WeatherModel data, bool isCelsius) {
-  Navigator.of(context).push(
-    MaterialPageRoute(
-      builder: ((ctx) => DetailedWeather(data, isCelsius)),
-    ),
-  );
+  if (data.gotResponse == true) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: ((ctx) => DetailedWeather(data, isCelsius)),
+      ),
+    );
+  }
 }
 
 class _UserCitiesListState extends State<UserCitiesList> {

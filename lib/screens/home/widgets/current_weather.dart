@@ -12,7 +12,8 @@ import '../../detailed_weather/detailed_weather.dart';
 class CurrentWeather extends StatefulWidget {
   final bool isCelsius;
   final bool isEditMode;
-  const CurrentWeather(this.isCelsius, this.isEditMode, {Key key}) : super(key: key);
+  const CurrentWeather(this.isCelsius, this.isEditMode, {Key key})
+      : super(key: key);
 
   @override
   State<CurrentWeather> createState() => _CurrentWeatherState();
@@ -79,7 +80,7 @@ class _CurrentWeatherState extends State<CurrentWeather> {
           weatherData = data;
           return InkWell(
             onTap: () {
-              if (!widget.isEditMode) {
+              if (!widget.isEditMode && data.gotResponse == true) {
                 pushDetailedWeather(context, data, widget.isCelsius);
               }
             },
@@ -157,7 +158,7 @@ class _CurrentWeatherState extends State<CurrentWeather> {
             ),
           );
         } else if (snapshot.hasError) {
-          return const Text("Error loading weather data.");
+          return const SizedBox();
         } else {
           return const CircularProgressIndicator();
         }

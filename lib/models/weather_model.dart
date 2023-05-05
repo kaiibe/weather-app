@@ -20,6 +20,7 @@ class WeatherModel {
   String currentWeatherIconId = "";
   List<List<String>> hourly = [];
   List<List<String>> daily = [];
+  bool gotResponse = false;
 
   WeatherModel({String city}) {
     name = city;
@@ -52,6 +53,8 @@ class WeatherModel {
       setWeatherIconId(weatherData);
       setHourlyForecast(weatherData);
       setDailyForecast(weatherData);
+
+      gotResponse = true;
     } else {
       print("Response Failure: Can't fetch weather data");
     }
