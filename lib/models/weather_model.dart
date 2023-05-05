@@ -46,65 +46,73 @@ class WeatherModel {
     if (weatherResponse.statusCode == 200) {
       final weatherData = json.decode(weatherResponse.body);
 
-      setTemperature(weatherData['current']['temp']);
-      weatherCondition = getWeatherCondition(
-          weatherData['current']['weather'][0]['description']);
-
-      tz.initializeTimeZones();
-      var timezone = tz.getLocation(weatherData['timezone']);
-      var now = tz.TZDateTime.now(timezone);
-      String formattedTime = DateFormat('HH:mm').format(now);
-      time = formattedTime;
-
-      currentWeatherIconId = weatherData['current']['weather'][0]['icon'];
-
-      List<String> cnt = [];
-      for (int i = 0; i < 24; i++) {
-        cnt = [];
-
-        final timestamp = weatherData['hourly'][i]['dt'];
-        final time = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-        final formattedTime = DateFormat('h a').format(time);
-        cnt.add(formattedTime);
-
-        cnt.add(weatherData['hourly'][i]['weather'][0]['icon']);
-
-        int celsiusTemp = (weatherData['hourly'][i]['temp'] - 273.15).round();
-        int fahrenheitTemp = (celsiusTemp * 9 / 5 + 32).round();
-
-        cnt.add("$celsiusTemp°C");
-        cnt.add("$fahrenheitTemp°f");
-
-        hourly.add(cnt);
-      }
-
-      for (int i = 0; i < 7; i++) {
-        cnt = [];
-        int timestamp = weatherData['daily'][i]['dt'];
-
-        DateTime dateTime =
-            DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-        String weekday = DateFormat('EEEE').format(dateTime);
-
-        cnt.add(weekday);
-        cnt.add(weatherData['daily'][i]['weather'][0]['icon']);
-
-        daily.add(cnt);
-      }
+      setTemperature(weatherData);
+      setWeatherCondition(weatherData);
+      setTime(weatherData);
+      setWeatherIconId(weatherData);
+      setHourlyForecast(weatherData);
+      setDailyForecast(weatherData);
     } else {
       print("Response Failure: Can't fetch weather data");
     }
   }
 
-  void setTemperature(temperature) {
-    int celsiusTemp = (temperature - 273.15).round();
+  void setTemperature(weatherData) {
+    int celsiusTemp = (weatherData['current']['temp'] - 273.15).round();
     int fahrenheitTemp = (celsiusTemp * 9 / 5 + 32).round();
 
     celsiusTemperature = "$celsiusTemp°C";
     fahrenheitTemperature = "$fahrenheitTemp°F";
   }
 
-  String getWeatherCondition(condition) {
-    return condition;
+  void setWeatherCondition(weatherData) {
+    weatherCondition = weatherData['current']['weather'][0]['description'];
+  }
+
+  void setTime(weatherData) {
+    tz.initializeTimeZones();
+    var timezone = tz.getLocation(weatherData['timezone']);
+    var now = tz.TZDateTime.now(timezone);
+    String formattedTime = DateFormat('HH:mm').format(now);
+    time = formattedTime;
+  }
+
+  void setWeatherIconId(weatherData) {
+    currentWeatherIconId = weatherData['current']['weather'][0]['icon'];
+  }
+
+  void setHourlyForecast(weatherData) {
+    List<String> cnt = [];
+    for (int i = 0; i < 24; i++) {
+      cnt = [];
+
+      final timestamp = weatherData['hourly'][i]['dt'];
+      final time = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+      final formattedTime = DateFormat('h a').format(time);
+      cnt.add(formattedTime);
+
+      cnt.add(weatherData['hourly'][i]['weather'][0]['icon']);
+
+      int celsiusTemp = (weatherData['hourly'][i]['temp'] - 273.15).round();
+      int fahrenheitTemp = (celsiusTemp * 9 / 5 + 32).round();
+
+      cnt.add("$celsiusTemp°C");
+      cnt.add("$fahrenheitTemp°f");
+
+      hourly.add(cnt);
+    }
+  }
+
+  void setDailyForecast(weatherData) {
+    List<String> cnt = [];
+    for (int i = 0; i < 7; i++) {
+      cnt = [];
+      int timestamp = weatherData['daily'][i]['dt'];
+      DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+      String weekday = DateFormat('EEEE').format(dateTime);
+      cnt.add(weekday);
+      cnt.add(weatherData['daily'][i]['weather'][0]['icon']);
+      daily.add(cnt);
+    }
   }
 }
