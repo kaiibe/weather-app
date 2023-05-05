@@ -21,6 +21,7 @@ dependencies:
   timezone: ^0.7.0
   csc_picker: ^0.2.7
   pull_down_button: ^0.8.3
+  country_state_city_picker: ^1.2.8
 
 dev_dependencies:
   flutter_test:

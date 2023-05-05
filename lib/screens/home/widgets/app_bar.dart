@@ -43,7 +43,7 @@ class CustomAppBar {
     }
     return [
       !isEditMode
-          ? Container(
+          ? SizedBox(
               child: PullDownButton(
                 itemBuilder: (context) => [
                   PullDownMenuItem(

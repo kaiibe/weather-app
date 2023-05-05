@@ -6,9 +6,9 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:http/http.dart' as http;
 
-// 1753363c1503391bf24468975ae119ef
-// 89a2173d9e7a8557d64eab9d8889aaea
-const apiKey = "89a2173d9e7a8557d64eab9d8889aaea";
+import 'constants.dart';
+
+String apiKey = Constants().apiKey;
 
 class WeatherModel {
   double lat, lon;

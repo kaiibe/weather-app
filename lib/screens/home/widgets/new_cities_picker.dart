@@ -1,5 +1,6 @@
-// ignore_for_file: unused_local_variable, library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api
 
+import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -15,121 +16,71 @@ class NewCitiesPicker extends StatefulWidget {
 
 class _NewCitiesPickerState extends State<NewCitiesPicker> {
   Constants myConstants = Constants();
-  String selectedCity = "";
-  List<String> cities = [
-    'None',
-    'New York',
-    'Los Angeles',
-    'Chicago',
-    'Houston',
-    'Phoenix',
-    'Philadelphia',
-    'San Antonio',
-    'San Diego',
-    'Dallas',
-    'San Jose',
-  ];
-  List<String> filteredCities = [];
 
-  @override
-  void initState() {
-    super.initState();
-    filteredCities.add(cities[0]);
-  }
+  String countryValue = "";
+  String stateValue = "";
+  String cityValue = "";
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
-      color: myConstants.pageColor.withOpacity(1),
-      height: 600,
-      child: Column(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: SizedBox(
-                height: 40,
-                width: 400,
-                child: CupertinoTextField(
-                  placeholder: "Search by city",
-                  placeholderStyle: TextStyle(color: myConstants.titleColor),
-                  style: TextStyle(
-                    color: myConstants.titleColor,
-                  ),
-                  decoration: BoxDecoration(
-                    color: myConstants.primaryColor,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                  ),
-                  prefix: Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Icon(
-                      CupertinoIcons.search,
-                      color: myConstants.titleColor,
-                    ),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      filteredCities = cities
-                          .where((city) =>
-                              city.toLowerCase().contains(value.toLowerCase()))
-                          .toList();
-                      if (filteredCities.isNotEmpty) {
-                        selectedCity = filteredCities[0];
-                      } else {
-                        selectedCity = "";
-                      }
-                    });
-                  },
-                ),
-              ),
-            ),
+    return Material(
+      borderRadius: BorderRadius.circular(20),
+      color: myConstants.primaryColor.withOpacity(1),
+      child: Container(
+          height: 400,
+          width: size.width,
+          padding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
+          decoration: BoxDecoration(
+            color: myConstants.primaryColor.withOpacity(1),
+            borderRadius: BorderRadius.circular(20),
           ),
-          Expanded(
-            flex: 3,
-            child: Align(
-              alignment: Alignment.center,
-              child: SizedBox(
-                height: 150,
-                child: CupertinoPicker(
-                  itemExtent: 40,
-                  children:
-                      List<Widget>.generate(filteredCities.length, (int index) {
-                    return Center(
-                      child: Text(
-                        filteredCities[index],
-                        style: TextStyle(color: myConstants.titleColor),
-                      ),
-                    );
-                  }),
-                  onSelectedItemChanged: (int index) {
-                    selectedCity = filteredCities[index];
-                  },
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: SizedBox(
-              height: 20,
-              child: CupertinoButton(
-                child: const Text(
-                  "Confirm",
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () {
-                  widget.addNewCity(selectedCity);
-                  selectedCity = "";
-                  Navigator.of(context).pop();
+          child: Column(
+            children: [
+              CSCPicker(
+                layout: Layout.vertical,
+                onCountryChanged: (value) {
+                  countryValue = value;
                 },
+                onStateChanged: (value) {
+                  stateValue = value;
+                },
+                onCityChanged: (value) {
+                  cityValue = value;
+                },
+                flagState: CountryFlag.DISABLE,
+                dropdownDecoration: BoxDecoration(
+                  color: myConstants.pageColor.withOpacity(1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                disabledDropdownDecoration: BoxDecoration(
+                  color: myConstants.pageColor.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                selectedItemStyle:
+                    TextStyle(color: myConstants.titleColor.withOpacity(1)),
               ),
-            ),
-          ),
-        ],
-      ),
+              const Spacer(),
+              Expanded(
+                child: CupertinoButton(
+                  onPressed: () {
+                    if (cityValue != "" && cityValue != null) {
+                      widget.addNewCity(cityValue);
+                    }
+                    cityValue = "";
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "Add",
+                    style: TextStyle(
+                      color: myConstants.titleColor.withOpacity(1),
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          )),
     );
   }
 }

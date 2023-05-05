@@ -1,7 +1,4 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/routes/default_transitions.dart';
 
 import '../../../models/weather_model.dart';
 import '../../../models/constants.dart';
@@ -128,14 +125,14 @@ class _UserCitiesListState extends State<UserCitiesList> {
                       onPressed: () {
                         widget.deleteCity(widget.myCities[index]);
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.delete,
                         color: Colors.red,
                         size: 35,
                       ),
                     ),
                   )
-                : SizedBox.shrink(),
+                : const SizedBox.shrink(),
             widget.isEditMode
                 ? Positioned(
                     bottom: 8,
@@ -144,14 +141,14 @@ class _UserCitiesListState extends State<UserCitiesList> {
                       onPressed: () {
                         widget.deleteCity(widget.myCities[index]);
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.arrow_back_ios_rounded,
                         color: Colors.red,
                         size: 30,
                       ),
                     ),
                   )
-                : SizedBox.shrink(),
+                : const SizedBox.shrink(),
           ],
         ),
       );
@@ -179,13 +176,13 @@ class _UserCitiesListState extends State<UserCitiesList> {
                           },
                           background: Container(
                             alignment: Alignment.center,
-                            margin: EdgeInsets.all(10),
+                            margin: const EdgeInsets.all(10),
                             height: 100,
                             decoration: BoxDecoration(
                               color: Colors.redAccent,
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.delete,
                               color: Colors.white,
                               size: 50,

@@ -11,8 +11,8 @@ import '../../detailed_weather/detailed_weather.dart';
 
 class CurrentWeather extends StatefulWidget {
   final bool isCelsius;
-  bool isEditMode;
-  CurrentWeather(this.isCelsius, this.isEditMode, {Key key}) : super(key: key);
+  final bool isEditMode;
+  const CurrentWeather(this.isCelsius, this.isEditMode, {Key key}) : super(key: key);
 
   @override
   State<CurrentWeather> createState() => _CurrentWeatherState();
