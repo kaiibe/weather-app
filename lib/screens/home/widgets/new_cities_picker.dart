@@ -1,28 +1,18 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../models/constants.dart';
 
-class NewCitiesPicker extends StatefulWidget {
+class NewCitiesPicker extends StatelessWidget {
   final Function addNewCity;
   const NewCitiesPicker(this.addNewCity, {Key key}) : super(key: key);
 
   @override
-  _NewCitiesPickerState createState() => _NewCitiesPickerState();
-}
-
-class _NewCitiesPickerState extends State<NewCitiesPicker> {
-  Constants myConstants = Constants();
-
-  String countryValue = "";
-  String stateValue = "";
-  String cityValue = "";
-
-  @override
   Widget build(BuildContext context) {
+    Constants myConstants = Constants();
+
+    String cityValue = "";
     Size size = MediaQuery.of(context).size;
     return Material(
       borderRadius: BorderRadius.circular(20),
@@ -30,7 +20,8 @@ class _NewCitiesPickerState extends State<NewCitiesPicker> {
       child: Container(
           height: 400,
           width: size.width,
-          padding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
+          padding:
+              const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
           decoration: BoxDecoration(
             color: myConstants.primaryColor.withOpacity(1),
             borderRadius: BorderRadius.circular(20),
@@ -39,12 +30,8 @@ class _NewCitiesPickerState extends State<NewCitiesPicker> {
             children: [
               CSCPicker(
                 layout: Layout.vertical,
-                onCountryChanged: (value) {
-                  countryValue = value;
-                },
-                onStateChanged: (value) {
-                  stateValue = value;
-                },
+                onCountryChanged: (_) => {},
+                onStateChanged: (_) => {},
                 onCityChanged: (value) {
                   cityValue = value;
                 },
@@ -65,7 +52,7 @@ class _NewCitiesPickerState extends State<NewCitiesPicker> {
                 child: CupertinoButton(
                   onPressed: () {
                     if (cityValue != "" && cityValue != null) {
-                      widget.addNewCity(cityValue);
+                      addNewCity(cityValue);
                     }
                     cityValue = "";
                     Navigator.pop(context);

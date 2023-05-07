@@ -104,7 +104,7 @@ class _CurrentWeatherState extends State<CurrentWeather> {
                         style: TextStyle(
                             fontSize: 25,
                             fontFamily: 'RussoOne',
-                            color: myConstants.titleColor),
+                            color: myConstants.titleColor.withOpacity(1)),
                       ),
                     ),
                     Positioned(
@@ -131,7 +131,7 @@ class _CurrentWeatherState extends State<CurrentWeather> {
                             style: TextStyle(
                                 fontSize: 25,
                                 fontFamily: 'RussoOne',
-                                color: myConstants.titleColor),
+                                color: myConstants.titleColor.withOpacity(1)),
                           ),
                         ],
                       ),

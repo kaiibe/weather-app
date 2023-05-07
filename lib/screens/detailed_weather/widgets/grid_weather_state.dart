@@ -5,11 +5,16 @@ import '../../../models/constants.dart';
 
 class GridWeatherState extends StatelessWidget {
   final String feelsLikeCelsius;
+  final String feelsLikeFahrenheit;
   final String humidity;
   final String windSpeed;
   final String uvIndex;
- 
-  const GridWeatherState( this.feelsLikeCelsius, this.humidity, this.windSpeed, this.uvIndex, {Key key}) : super(key: key);
+  final bool isCelsius;
+
+  const GridWeatherState(this.feelsLikeCelsius, this.feelsLikeFahrenheit,
+      this.humidity, this.windSpeed, this.uvIndex, this.isCelsius,
+      {Key key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +63,7 @@ class GridWeatherState extends StatelessWidget {
                   alignment: Alignment.center,
                   padding: const EdgeInsets.only(bottom: 20),
                   child: Text(
-                    feelsLikeCelsius,
+                    isCelsius ? feelsLikeCelsius : feelsLikeFahrenheit,
                     style: TextStyle(
                       color: myConstants.titleColor.withOpacity(1),
                       fontSize: 40,

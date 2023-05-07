@@ -1,13 +1,11 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
 import '../../../models/constants.dart';
 
 class HourlyForecasts extends StatelessWidget {
   final List<List<String>> hourly;
-  bool isCelsius;
-  HourlyForecasts(this.hourly, this.isCelsius, {Key key}) : super(key: key);
+  final bool isCelsius;
+  const HourlyForecasts(this.hourly, this.isCelsius, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +25,7 @@ class HourlyForecasts extends StatelessWidget {
               width: 120,
               height: 145,
               decoration: BoxDecoration(
-                color: myConstants.primaryColor,
+                color: myConstants.primaryColor.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Column(children: [

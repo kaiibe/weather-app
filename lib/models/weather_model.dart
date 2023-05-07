@@ -1,6 +1,5 @@
-// ignore_for_file: avoid_print
-
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
@@ -43,8 +42,7 @@ class WeatherModel {
       lat = coordsJsonResponse[0]['lat'];
       lon = coordsJsonResponse[0]['lon'];
     } else {
-      print(
-          "Response Failure: Can't fetch lat and lon in my city weather model $name");
+      debugPrint("Response Failure: Can't fetch lat and lon in my city weather model $name");
     }
 
     String weatherURL =
@@ -67,7 +65,7 @@ class WeatherModel {
 
       gotResponse = true;
     } else {
-      print("Response Failure: Can't fetch weather data");
+      debugPrint("Response Failure: Can't fetch weather data");
     }
   }
 
@@ -150,8 +148,20 @@ class WeatherModel {
       int timestamp = weatherData['daily'][i]['dt'];
       DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
       String weekday = DateFormat('EEEE').format(dateTime);
+
+      int minC = (weatherData['daily'][i]['temp']['min'] - 273.15).round();
+      int minF = (minC * 9 / 5 + 32).round();
+
+      int maxC = (weatherData['daily'][i]['temp']['max'] - 273.15).round();
+      int maxF = (maxC * 9 / 5 + 32).round();
+
       cnt.add(weekday);
+      cnt.add("$minC°");
+      cnt.add("$maxC°");
+      cnt.add("$minF°");
+      cnt.add("$maxF°");
       cnt.add(weatherData['daily'][i]['weather'][0]['icon']);
+
       daily.add(cnt);
     }
   }

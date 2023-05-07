@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print, prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -103,7 +101,7 @@ class _HomeState extends State<Home> {
                         CurrentWeather(isCelsius, isEditMode),
                         UserCitiesList(
                             deleteCity, _myCities, isCelsius, isEditMode),
-                        isEditMode ? AddNewCityBlank(addNewCity) : SizedBox.shrink(),
+                        isEditMode ? AddNewCityBlank(addNewCity) : const SizedBox.shrink(),
                       ],
                     ),
                   ),

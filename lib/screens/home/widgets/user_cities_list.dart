@@ -71,7 +71,7 @@ class _UserCitiesListState extends State<UserCitiesList> {
                 style: TextStyle(
                     fontSize: 25,
                     fontFamily: 'RussoOne',
-                    color: myConstants.titleColor),
+                    color: myConstants.titleColor.withOpacity(1)),
               ),
             ),
             Positioned(
@@ -98,7 +98,7 @@ class _UserCitiesListState extends State<UserCitiesList> {
                     style: TextStyle(
                         fontSize: 25,
                         fontFamily: 'RussoOne',
-                        color: myConstants.titleColor),
+                        color: myConstants.titleColor.withOpacity(1)),
                   ),
                 ],
               ),

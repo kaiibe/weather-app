@@ -1,8 +1,5 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 
 import '../../../models/constants.dart';
 import '../../models/weather_model.dart';
@@ -52,9 +49,11 @@ class DetailedWeather extends StatelessWidget {
               DailyForecast(weatherData.daily),
               GridWeatherState(
                   weatherData.feelsLikeCelsius,
+                  weatherData.feelsLikeFahrenheit,
                   weatherData.humidity,
                   weatherData.windSpeed,
-                  weatherData.uvIndex)
+                  weatherData.uvIndex,
+                  isCelsius)
             ],
           ),
         ),

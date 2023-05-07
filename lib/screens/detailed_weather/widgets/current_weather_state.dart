@@ -9,8 +9,8 @@ class CurrentWeatherState extends StatelessWidget {
   final String currentWeatherIconId;
   final bool isCelsius;
 
-  const CurrentWeatherState(this.celsiusTemperature, this.fahrenheitTemperature, this.weatherCondition,
-      this.currentWeatherIconId, this.isCelsius,
+  const CurrentWeatherState(this.celsiusTemperature, this.fahrenheitTemperature,
+      this.weatherCondition, this.currentWeatherIconId, this.isCelsius,
       {Key key})
       : super(key: key);
 
@@ -33,7 +33,7 @@ class CurrentWeatherState extends StatelessWidget {
               style: TextStyle(
                 fontSize: 60,
                 fontFamily: 'RussoOne',
-                color: myConstants.titleColor,
+                color: myConstants.titleColor.withOpacity(1),
               ),
             ),
           ),

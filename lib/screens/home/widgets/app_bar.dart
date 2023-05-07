@@ -52,12 +52,13 @@ class CustomAppBar {
                       editMode();
                     },
                     itemTheme: PullDownMenuItemTheme(
-                      textStyle: TextStyle(color: myConstants.titleColor),
+                      textStyle: TextStyle(
+                          color: myConstants.titleColor.withOpacity(1)),
                     ),
                     icon: Icons.edit,
                   ),
-                  PullDownMenuDivider.large(
-                    color: myConstants.pageColor,
+                  const PullDownMenuDivider(
+                    color: Colors.black,
                   ),
                   PullDownMenuItem.selectable(
                     selected: isCelsius,
@@ -66,7 +67,8 @@ class CustomAppBar {
                       changeTemperature("C");
                     },
                     itemTheme: PullDownMenuItemTheme(
-                      textStyle: TextStyle(color: myConstants.titleColor),
+                      textStyle: TextStyle(
+                          color: myConstants.titleColor.withOpacity(1)),
                     ),
                   ),
                   PullDownMenuItem.selectable(
@@ -76,7 +78,8 @@ class CustomAppBar {
                       changeTemperature("F");
                     },
                     itemTheme: PullDownMenuItemTheme(
-                      textStyle: TextStyle(color: myConstants.titleColor),
+                      textStyle: TextStyle(
+                          color: myConstants.titleColor.withOpacity(1)),
                     ),
                   ),
                 ],
