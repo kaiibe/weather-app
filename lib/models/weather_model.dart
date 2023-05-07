@@ -13,11 +13,18 @@ String apiKey = Constants().apiKey;
 class WeatherModel {
   double lat, lon;
   String name = "-/-";
+
   String time = "-/-";
   String celsiusTemperature = "-/-";
   String fahrenheitTemperature = "-/-";
   String weatherCondition = "-/-";
-  String currentWeatherIconId = "";
+  String feelsLikeCelsius = "";
+  String feelsLikeFahrenheit = "";
+  String windSpeed = "";
+  String humidity = "";
+  String uvIndex = "";
+  String currentWeatherIconId;
+
   List<List<String>> hourly = [];
   List<List<String>> daily = [];
   bool gotResponse = false;
@@ -50,9 +57,13 @@ class WeatherModel {
       setTemperature(weatherData);
       setWeatherCondition(weatherData);
       setTime(weatherData);
+      setFeelsLike(weatherData);
       setWeatherIconId(weatherData);
       setHourlyForecast(weatherData);
       setDailyForecast(weatherData);
+      setHumidity(weatherData);
+      setUVIndex(weatherData);
+      setWindSpeed(weatherData);
 
       gotResponse = true;
     } else {
@@ -78,6 +89,32 @@ class WeatherModel {
     var now = tz.TZDateTime.now(timezone);
     String formattedTime = DateFormat('HH:mm').format(now);
     time = formattedTime;
+  }
+
+  void setFeelsLike(weatherData) {
+    int celsiusTemp = (weatherData['current']['feels_like'] - 273.15).round();
+    int fahrenheitTemp = (celsiusTemp * 9 / 5 + 32).round();
+
+    feelsLikeCelsius = "$celsiusTemp°C";
+    feelsLikeFahrenheit = "$fahrenheitTemp°F";
+  }
+
+  void setWindSpeed(weatherData) {
+    int wind = (weatherData['current']['wind_speed']).round();
+
+    windSpeed = "$wind km/h";
+  }
+
+  void setHumidity(weatherData) {
+    int humidityTemp = weatherData['current']['humidity'];
+
+    humidity = "$humidityTemp %";
+  }
+
+  void setUVIndex(weatherData) {
+    int uvi = weatherData['current']['uvi'].round();
+
+    uvIndex = "$uvi";
   }
 
   void setWeatherIconId(weatherData) {
