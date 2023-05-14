@@ -34,11 +34,25 @@ class _NewCitiesPickerState extends State<NewCitiesPicker> {
           ),
           child: Column(
             children: [
-              CupertinoTextField(
-                onChanged: (value) {
-                  cityValue = value;
-                },
-                placeholder: "Search by location",
+              Container(
+                height: 50,
+                child: CupertinoTextField(
+                  onChanged: (value) {
+                    cityValue = value;
+                  },
+                  padding: EdgeInsets.only(left: 16.0),
+                  style: TextStyle(
+                    color: myConstants.titleColor.withOpacity(1),
+                  ),
+                  placeholder: "Type location",
+                  placeholderStyle: TextStyle(
+                    color: myConstants.titleColor,
+                  ),
+                  decoration: BoxDecoration(
+                    color: myConstants.primaryColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
               ),
               const Spacer(),
               Expanded(
@@ -61,6 +75,7 @@ class _NewCitiesPickerState extends State<NewCitiesPicker> {
                     style: TextStyle(
                       color: myConstants.titleColor.withOpacity(1),
                       fontSize: 20,
+                      fontFamily: 'RussoOne',
                     ),
                   ),
                 ),
