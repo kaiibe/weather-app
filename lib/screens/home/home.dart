@@ -101,7 +101,9 @@ class _HomeState extends State<Home> {
                         CurrentWeather(isCelsius, isEditMode),
                         UserCitiesList(
                             deleteCity, _myCities, isCelsius, isEditMode),
-                        isEditMode ? AddNewCityBlank(addNewCity) : const SizedBox.shrink(),
+                        isEditMode
+                            ? AddNewCityBlank(addNewCity)
+                            : const SizedBox.shrink(),
                       ],
                     ),
                   ),
