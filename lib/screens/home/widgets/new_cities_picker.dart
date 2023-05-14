@@ -1,4 +1,3 @@
-import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -34,13 +33,13 @@ class _NewCitiesPickerState extends State<NewCitiesPicker> {
           ),
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 height: 50,
                 child: CupertinoTextField(
                   onChanged: (value) {
                     cityValue = value;
                   },
-                  padding: EdgeInsets.only(left: 16.0),
+                  padding: const EdgeInsets.only(left: 16.0),
                   style: TextStyle(
                     color: myConstants.titleColor.withOpacity(1),
                   ),
