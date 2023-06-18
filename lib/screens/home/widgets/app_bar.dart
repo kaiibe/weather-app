@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pull_down_button/pull_down_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../models/constants.dart';
 
@@ -81,6 +82,31 @@ class CustomAppBar {
                       textStyle: TextStyle(
                           color: myConstants.titleColor.withOpacity(1)),
                     ),
+                  ),
+                  const PullDownMenuDivider(
+                    color: Colors.black,
+                  ),
+                  PullDownMenuItem.selectable(
+                    title: 'Open Website',
+                    onTap: () async {
+                      const url =
+                          'https://kaiibe.github.io/weather-web/'; // Replace with your desired website URL
+                      if (await canLaunch(url)) {
+                        await launch(
+                          url,
+                          forceSafariVC: false,
+                          forceWebView: false,
+                        );
+                      } else {
+                        throw 'Could not launch $url';
+                      }
+                    },
+                    itemTheme: PullDownMenuItemTheme(
+                      textStyle: TextStyle(
+                        color: myConstants.titleColor.withOpacity(1),
+                      ),
+                    ),
+                    icon: CupertinoIcons.arrow_down_left_square,
                   ),
                 ],
                 routeTheme: PullDownMenuRouteTheme(

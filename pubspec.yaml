@@ -22,6 +22,7 @@ dependencies:
   csc_picker: ^0.2.7
   pull_down_button: ^0.8.3
   country_state_city_picker: ^1.2.8
+  url_launcher: ^6.0.9
 
 dev_dependencies:
   flutter_test:
