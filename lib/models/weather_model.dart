@@ -42,7 +42,8 @@ class WeatherModel {
       lat = coordsJsonResponse[0]['lat'];
       lon = coordsJsonResponse[0]['lon'];
     } else {
-      debugPrint("Response Failure: Can't fetch lat and lon in my city weather model $name");
+      debugPrint(
+          "Response Failure: Can't fetch lat and lon in my city weather model $name");
     }
 
     String weatherURL =
@@ -78,7 +79,13 @@ class WeatherModel {
   }
 
   void setWeatherCondition(weatherData) {
-    weatherCondition = weatherData['current']['weather'][0]['description'];
+    String tempWeatherCondition =
+        weatherData['current']['weather'][0]['description'];
+    List<String> words = tempWeatherCondition.split(' ');
+    words = words
+        .map((word) => '${word[0].toUpperCase()}${word.substring(1)}')
+        .toList();
+    weatherCondition = words.join(' ');
   }
 
   void setTime(weatherData) {
