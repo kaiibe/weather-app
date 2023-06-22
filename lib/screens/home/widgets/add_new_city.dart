@@ -39,9 +39,10 @@ class AddNewCityBlank extends StatelessWidget {
             child: Text(
               "Add",
               style: TextStyle(
-                  fontSize: 25,
-                  fontFamily: "RussoOne",
-                  color: myConstants.titleColor),
+                fontSize: 25,
+                fontFamily: "RussoOne",
+                color: myConstants.titleColor,
+              ),
             ),
           ),
         ),
