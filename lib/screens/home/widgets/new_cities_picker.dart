@@ -58,7 +58,7 @@ class _NewCitiesPickerState extends State<NewCitiesPicker> {
       borderRadius: BorderRadius.circular(20),
       color: myConstants.primaryColor.withOpacity(1),
       child: Container(
-        height: 500,
+        height: 700,
         width: size.width,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
