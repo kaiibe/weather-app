@@ -10,7 +10,7 @@ import 'constants.dart';
 String apiKey = Constants().apiKey;
 
 class WeatherModel {
-  double lat, lon;
+  late double lat, lon;
   String name = "-/-";
 
   String time = "-/-";
@@ -22,13 +22,13 @@ class WeatherModel {
   String windSpeed = "";
   String humidity = "";
   String uvIndex = "";
-  String currentWeatherIconId;
+  late String currentWeatherIconId;
 
   List<List<String>> hourly = [];
   List<List<String>> daily = [];
   bool gotResponse = false;
 
-  WeatherModel({String city}) {
+  WeatherModel(city) {
     name = city;
   }
 

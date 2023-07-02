@@ -6,7 +6,7 @@ import '../../../models/constants.dart';
 
 class DailyForecast extends StatelessWidget {
   final List<List<String>> daily;
-  const DailyForecast(this.daily, {Key key}) : super(key: key);
+  const DailyForecast(this.daily, {super.key});
 
   @override
   Widget build(BuildContext context) {

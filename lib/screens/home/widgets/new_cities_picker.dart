@@ -9,7 +9,7 @@ import '../../../models/constants.dart';
 class NewCitiesPicker extends StatefulWidget {
   final Function addNewCity;
 
-  const NewCitiesPicker(this.addNewCity, {Key key}) : super(key: key);
+  const NewCitiesPicker(this.addNewCity, {super.key});
 
   @override
   State<NewCitiesPicker> createState() => _NewCitiesPickerState();

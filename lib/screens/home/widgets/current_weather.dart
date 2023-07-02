@@ -12,8 +12,7 @@ import '../../detailed_weather/detailed_weather.dart';
 class CurrentWeather extends StatefulWidget {
   final bool isCelsius;
   final bool isEditMode;
-  const CurrentWeather(this.isCelsius, this.isEditMode, {Key key})
-      : super(key: key);
+  const CurrentWeather(this.isCelsius, this.isEditMode, {super.key});
 
   @override
   State<CurrentWeather> createState() => _CurrentWeatherState();
@@ -21,8 +20,8 @@ class CurrentWeather extends StatefulWidget {
 
 class _CurrentWeatherState extends State<CurrentWeather> {
   String city = "";
-  double lat, lon;
-  WeatherModel weatherData;
+  late double lat, lon;
+  late WeatherModel weatherData;
 
   String temperature = "Loading...";
   String weatherCondition = "Loading...";
@@ -43,7 +42,7 @@ class _CurrentWeatherState extends State<CurrentWeather> {
     List<Placemark> placemark = await placemarkFromCoordinates(lat, lon);
     Placemark place = placemark[0];
     setState(() {
-      city = place.locality;
+      city = place.locality!;
     });
   }
 
@@ -58,10 +57,7 @@ class _CurrentWeatherState extends State<CurrentWeather> {
 
   Future<WeatherModel> getWeatherData(
       double lat, double lon, String city) async {
-    if (weatherData != null) {
-      return weatherData;
-    }
-    final data = WeatherModel(city: city);
+    final data = WeatherModel(city);
     await data.getWeatherData();
     weatherData = data;
     return data;
@@ -77,7 +73,7 @@ class _CurrentWeatherState extends State<CurrentWeather> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final data = snapshot.data;
-          weatherData = data;
+          weatherData = data!;
           return InkWell(
             onTap: () {
               if (!widget.isEditMode && data.gotResponse == true) {

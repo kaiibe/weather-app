@@ -6,7 +6,7 @@ import '../widgets/new_cities_picker.dart';
 
 class AddNewCityBlank extends StatelessWidget {
   final Function addNewCity;
-  const AddNewCityBlank(this.addNewCity, {Key key}) : super(key: key);
+  const AddNewCityBlank(this.addNewCity, {super.key});
 
   @override
   Widget build(BuildContext context) {

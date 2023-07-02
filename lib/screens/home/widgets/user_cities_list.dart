@@ -11,9 +11,7 @@ class UserCitiesList extends StatefulWidget {
   final bool isEditMode;
 
   const UserCitiesList(
-      this.deleteCity, this.myCities, this.isCelsius, this.isEditMode,
-      {Key key})
-      : super(key: key);
+      this.deleteCity, this.myCities, this.isCelsius, this.isEditMode, {super.key});
 
   @override
   State<UserCitiesList> createState() => _UserCitiesListState();
@@ -35,9 +33,9 @@ class _UserCitiesListState extends State<UserCitiesList> {
 
   Future<WeatherModel> getWeatherData(String city) async {
     if (cachedWeatherData.containsKey(city)) {
-      return cachedWeatherData[city];
+      return cachedWeatherData[city]!;
     } else {
-      final data = WeatherModel(city: city);
+      final data = WeatherModel(city);
       await data.getWeatherData();
       cachedWeatherData[city] = data;
       return data;
@@ -167,7 +165,7 @@ class _UserCitiesListState extends State<UserCitiesList> {
               return InkWell(
                   onTap: () {
                     if (!widget.isEditMode) {
-                      _selectedDetailedWeather(context, data, widget.isCelsius);
+                      _selectedDetailedWeather(context, data!, widget.isCelsius);
                     }
                   },
                   child: widget.isEditMode

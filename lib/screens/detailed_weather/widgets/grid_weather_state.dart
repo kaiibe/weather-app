@@ -13,8 +13,7 @@ class GridWeatherState extends StatelessWidget {
 
   const GridWeatherState(this.feelsLikeCelsius, this.feelsLikeFahrenheit,
       this.humidity, this.windSpeed, this.uvIndex, this.isCelsius,
-      {Key key})
-      : super(key: key);
+      {super.key});
 
   @override
   Widget build(BuildContext context) {

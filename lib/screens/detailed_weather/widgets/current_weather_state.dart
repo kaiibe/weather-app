@@ -11,8 +11,7 @@ class CurrentWeatherState extends StatelessWidget {
 
   const CurrentWeatherState(this.celsiusTemperature, this.fahrenheitTemperature,
       this.weatherCondition, this.currentWeatherIconId, this.isCelsius,
-      {Key key})
-      : super(key: key);
+      {super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -12,8 +12,7 @@ import './widgets/grid_weather_state.dart';
 class DetailedWeather extends StatelessWidget {
   final WeatherModel weatherData;
   final bool isCelsius;
-  const DetailedWeather(this.weatherData, this.isCelsius, {Key key})
-      : super(key: key);
+  const DetailedWeather(this.weatherData, this.isCelsius, {super.key});
 
   @override
   Widget build(BuildContext context) {
