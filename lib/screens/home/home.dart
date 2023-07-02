@@ -8,7 +8,7 @@ import '../../server/geolocator.dart';
 import './widgets/app_bar.dart';
 import './widgets/user_cities_list.dart';
 import './widgets/current_weather.dart';
-import './widgets/add_new_city.dart';
+import './widgets/add_new_city_card.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -18,9 +18,9 @@ class Home extends StatefulWidget {
 }
 
 final List<String> _myCities = [
-  "Lviv",
   "Dushanbe",
   "Dubai",
+  "Moscow",
 ];
 
 bool isCelsius = true;

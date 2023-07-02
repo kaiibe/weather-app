@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/home/home.dart';
+import 'screens/splash/splash.dart';
 
 void main() => runApp(const MyApp());
 
@@ -9,9 +9,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      
       title: "Weather App",
-      home: Home(),
+      home: Splash(),
       debugShowCheckedModeBanner: false,
     );
   }

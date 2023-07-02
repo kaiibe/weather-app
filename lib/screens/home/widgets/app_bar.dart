@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pull_down_button/pull_down_button.dart';
@@ -58,9 +60,11 @@ class CustomAppBar {
                     ),
                     icon: Icons.edit,
                   ),
+
                   const PullDownMenuDivider(
                     color: Colors.black,
                   ),
+
                   PullDownMenuItem.selectable(
                     selected: isCelsius,
                     title: 'Celsius',
@@ -83,14 +87,16 @@ class CustomAppBar {
                           color: myConstants.titleColor.withOpacity(1)),
                     ),
                   ),
+                  
                   const PullDownMenuDivider(
                     color: Colors.black,
                   ),
+
                   PullDownMenuItem.selectable(
                     title: 'Open Website',
                     onTap: () async {
                       const url =
-                          'https://kaiibe.github.io/weather-web/'; // Replace with your desired website URL
+                          'https://kaiibe.github.io/weather-web/';
                       if (await canLaunch(url)) {
                         await launch(
                           url,

@@ -22,37 +22,34 @@ class CurrentWeatherState extends StatelessWidget {
     return SizedBox(
       width: size.width,
       height: 200,
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          Positioned(
-            top: 50,
-            left: 20,
-            child: Text(
-              isCelsius ? celsiusTemperature : fahrenheitTemperature,
-              style: TextStyle(
-                fontSize: 60,
-                fontFamily: 'RussoOne',
-                color: myConstants.titleColor.withOpacity(1),
-              ),
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  isCelsius ? celsiusTemperature : fahrenheitTemperature,
+                  style: TextStyle(
+                    fontSize: 60,
+                    fontFamily: 'RussoOne',
+                    color: myConstants.titleColor.withOpacity(1),
+                  ),
+                ),
+                Text(
+                  weatherCondition,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontFamily: 'RussoOne',
+                    color: myConstants.titleColor,
+                  ),
+                ),
+              ],
             ),
-          ),
-          Positioned(
-            top: 130,
-            left: 20,
-            child: Text(
-              weatherCondition,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'RussoOne',
-                color: myConstants.titleColor,
-              ),
-            ),
-          ),
-          Positioned(
-            top: 20,
-            left: 270,
-            child: Container(
+            const Spacer(),
+            Container(
               width: 130,
               height: 130,
               decoration: BoxDecoration(
@@ -61,8 +58,8 @@ class CurrentWeatherState extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
