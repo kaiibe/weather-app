@@ -1,6 +1,6 @@
-# Flutter Weather App
+# Mobile Weather App
 
-<p>A simple weather App created using Flutter and Dart and using weather API</p>
+<p>Mobile Weather Application created using flutter and integrated with <a href="https://openweathermap.org/api/">openweathermap API</a> </p>
 
 ## Features
 
@@ -24,11 +24,11 @@
    ```sh
    flutter pub get
    ```
-4. Navigate to **lib/models/constants.dart** and paste your API key to apiKey variable
+4. Open the project and navigate to **lib/models/constants.dart** and paste your API key to apiKey variable
    ```dart
    final String apiKey apiKey = "";
    ```
-5. Run the App
+5. Run the App on emulator or physical phone 
 
 # Preview
 
