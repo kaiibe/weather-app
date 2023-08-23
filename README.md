@@ -1,6 +1,6 @@
 # Mobile Weather App
 
-<p>Mobile Weather Application created using flutter and integrated with <a href="https://openweathermap.org/api/">openweathermap API</a> </p>
+<p>Mobile Weather Application created using flutter and integrated with <a href="https://openweathermap.org/api/">openweathermap</a> API</p>
 
 ## Features
 
